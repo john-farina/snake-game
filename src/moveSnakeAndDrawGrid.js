@@ -31,14 +31,13 @@ function drawSnakeInGrid(snakeCoord) {
 export default function moveSnakeAndDrawGrid(snakeCoords, direction) {
   let snakeCoord = _.cloneDeep(snakeCoords);
 
-  console.log("first snake");
+  //first grid test (using default coord - no moving)
   drawSnakeInGrid(snakeCoord);
 
   if (direction === "left") {
-    console.log("before shift");
-
     // Remove LAST
     snakeCoord.pop();
+
     // place FIRST: get head row & get head column - 1 = (left)
     snakeCoord.unshift([snakeCoord[0][0], snakeCoord[0][1] - 1]);
 

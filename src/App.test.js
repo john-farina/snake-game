@@ -1,11 +1,12 @@
 import moveSnakeAndDrawGrid from "./moveSnakeAndDrawGrid";
 
 // DEFAULT GRID I SET UP IS THIS
-//    0     1     2     3
-// 0 [null, null, null, null],
-// 1 [null, null, null, null],
-// 2 [null, null, null, null],
-// 3 [null, null, null, null],
+//           c o l u m n
+//       0     1     2     3
+// r  0 [null, null, null, null],
+// o  1 [null, null, null, null],
+// w  2 [null, null, null, null],
+//    3 [null, null, null, null],
 
 test("should move one space to left", () => {
   let snakeCoords = [
