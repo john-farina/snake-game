@@ -5,22 +5,31 @@
 //   const linkElement = screen.getByText(/learn react/i);
 //   expect(linkElement).toBeInTheDocument();
 // });
-import moveSnake from "./moveSnake";
+
+import moveSnakeAndDrawGrid from "./moveSnakeAndDrawGrid";
 
 test("should move one space to left", () => {
-  let grid = [
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, "SH", "SB", "ST"],
-    [null, null, null, null],
+  // DEFAULT GRID I SET UP IS THIS
+  //    0     1     2     3
+  // 0 [null, null, null, null],
+  // 1 [null, null, null, null],
+  // 2 [null, null, null, null],
+  // 3 [null, null, null, null],
+
+  let snakeCoords = [
+    [2, 1],
+    [2, 2],
+    [2, 3],
   ];
 
   let movedGrid = [
     [null, null, null, null],
     [null, null, null, null],
-    ["SH", "SB", "ST", null],
+    ["HEAD", "BODY", "TAIL", null],
     [null, null, null, null],
   ];
 
-  expect(moveSnake(grid, "left")).toBe(movedGrid);
+  expect(moveSnakeAndDrawGrid(snakeCoords, "left")).toStrictEqual(movedGrid);
 });
+
+//make a function that draws snake and gameboard

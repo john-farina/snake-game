@@ -1,5 +1,11 @@
+// export default
 function moveSnake(grid, direction) {
   let snakeSize = 0;
+  let snakeCoords = [
+    [0, 1],
+    [0, 2],
+    [0, 0],
+  ];
   let newGrid = grid;
   let oldHeadLocation = [];
   let tailLocation = [];
@@ -61,9 +67,10 @@ function moveSnake(grid, direction) {
     console.log(
       `oldHeadLocation ${oldHeadLocation}, tailLocation ${tailLocation}; ((${snakeSize}))\ngrid after changes:`
     );
-    for (row of newGrid) {
-      console.log(row);
-    }
+    // for (row of newGrid) {
+    //   console.log(row);
+    // }
+    return newGrid;
   }
 
   //move right
