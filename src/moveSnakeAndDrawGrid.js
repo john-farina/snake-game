@@ -1,21 +1,20 @@
 const _ = require("lodash");
-const { compileString } = require("sass");
 
 function drawSnakeInGrid(snakeCoord) {
   let grid = [
     [null, null, null, null],
     [null, null, null, null],
-    //     head  body  tail
     [null, null, null, null],
     [null, null, null, null],
   ];
-  //draw snake in grid using snakeCoords
+
+  // draw snake in grid using snakeCoords
   for (let i = 0; i < snakeCoord.length; i++) {
     let rowCoord = snakeCoord[i][0];
     let columnCoord = snakeCoord[i][1];
-    console.log(snakeCoord[i]);
+    console.log("drawSnakeInGridFunction", snakeCoord[i]);
 
-    //if first element in array
+    //if (first element in array?) = Head
     if (i === 0) {
       grid[rowCoord][columnCoord] = "HEAD";
     } else if (i === snakeCoord.length - 1) {
@@ -25,11 +24,6 @@ function drawSnakeInGrid(snakeCoord) {
       grid[rowCoord][columnCoord] = "BODY";
     }
   }
-
-  //console.log newGrid rows for testing
-  // for (rows of grid) {
-  //   console.log(rows);
-  // }
 
   return grid;
 }
@@ -42,28 +36,22 @@ export default function moveSnakeAndDrawGrid(snakeCoords, direction) {
 
   if (direction === "left") {
     console.log("before shift");
-    // for (coords in snakeCoord) {
-    //   console.log(coords, snakeCoord[coords]);
-    // }
 
-    //remove tail
+    // Remove LAST
     snakeCoord.pop();
-
-    // create new head that is one less then old heads column (going left)
-    // get head row & get head column - 1 (left)
+    // place FIRST: get head row & get head column - 1 = (left)
     snakeCoord.unshift([snakeCoord[0][0], snakeCoord[0][1] - 1]);
 
     console.log("after the shift to left");
     return drawSnakeInGrid(snakeCoord);
-  } else {
   }
 }
 
+///////// (!NODE TESTS!)
 // each row is 0-4
-let snakeCoords = [
-  [2, 1],
-  [2, 2],
-  [2, 3],
-];
-
+// let snakeCoords = [
+//   [2, 1],
+//   [2, 2],
+//   [2, 3],
+// ];
 // moveSnakeAndDrawGrid(snakeCoords, "left");
