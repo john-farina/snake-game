@@ -12,7 +12,7 @@ function drawSnakeInGrid(snakeCoord) {
   for (let i = 0; i < snakeCoord.length; i++) {
     let rowCoord = snakeCoord[i][0];
     let columnCoord = snakeCoord[i][1];
-    console.log("drawSnakeInGridFunction", snakeCoord[i]);
+    console.log("drawSnakeInGridFunction", i, snakeCoord[i]);
 
     //if (first element in array?) = Head
     if (i === 0) {
@@ -44,6 +44,11 @@ export default function moveSnakeAndDrawGrid(snakeCoords, direction) {
     console.log("after the shift to left");
     return drawSnakeInGrid(snakeCoord);
   }
+  if (direction === "right") {
+    // Remove LAST
+    snakeCoord.pop();
+    return drawSnakeInGrid(snakeCoord);
+  }
 }
 
 ///////// (!NODE TESTS!)
@@ -54,3 +59,9 @@ export default function moveSnakeAndDrawGrid(snakeCoords, direction) {
 //   [2, 3],
 // ];
 // moveSnakeAndDrawGrid(snakeCoords, "left");
+let coord = [
+  [2, 2],
+  [2, 1],
+  [2, 0],
+];
+moveSnakeAndDrawGrid(coord, "left");
