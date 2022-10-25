@@ -1,4 +1,5 @@
-import moveSnakeAndDrawGrid from "./moveSnakeAndDrawGrid";
+import moveSnakeInGrid from "./functions/moveSnakeInGrid";
+import drawSnakeInGrid from "./functions/drawSnakeInGrid";
 
 // DEFAULT GRID I SET UP IS THIS
 //           c o l u m n
@@ -26,7 +27,7 @@ test("should move one space down", () => {
     [null, null, null, "HEAD"],
   ];
 
-  expect(moveSnakeAndDrawGrid(snakeCoords, "down")).toStrictEqual(movedGrid);
+  expect(moveSnakeInGrid(snakeCoords, "down")).toStrictEqual(movedGrid);
 });
 
 test("should move one space up", () => {
@@ -47,7 +48,7 @@ test("should move one space up", () => {
     [null, null, null, null],
   ];
 
-  expect(moveSnakeAndDrawGrid(snakeCoords, "up")).toStrictEqual(movedGrid);
+  expect(moveSnakeInGrid(snakeCoords, "up")).toStrictEqual(movedGrid);
 });
 
 test("should move one space to right", () => {
@@ -68,7 +69,7 @@ test("should move one space to right", () => {
     [null, null, null, null],
   ];
 
-  expect(moveSnakeAndDrawGrid(snakeCoords, "right")).toStrictEqual(movedGrid);
+  expect(moveSnakeInGrid(snakeCoords, "right")).toStrictEqual(movedGrid);
 });
 
 test("should move one space to left", () => {
@@ -89,5 +90,5 @@ test("should move one space to left", () => {
     [null, null, null, null],
   ];
 
-  expect(moveSnakeAndDrawGrid(snakeCoords, "left")).toStrictEqual(movedGrid);
+  expect(moveSnakeInGrid(snakeCoords, "left")).toStrictEqual(movedGrid);
 });
