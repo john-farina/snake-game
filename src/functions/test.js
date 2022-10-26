@@ -119,3 +119,11 @@ console.log("move snake left:");
 for (let i = 0; i < grid.length; i++) {
   console.log(grid[i]);
 }
+
+//RETURNS WITH THE OLD TAIL STILL IN PLACE (STILL LOGGING OLD GRID NOT RESETING SNAKE(have to add function to reset all snake before placing in grid might be good for a class))
+
+// what this returns at end
+// (4) [null, null, null, null]
+// (4) [null, null, null, null]
+// (4) [null, null, null, null]
+// (4) ['HEAD', 'BODY', 'TAIL', 'TAIL']
