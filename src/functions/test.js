@@ -92,6 +92,7 @@ function drawSnakeInGrid(snakeCoord, grid, direction) {
   return grid;
 }
 
+//// THE TEST
 let grid = drawGrid(4);
 
 for (let i = 0; i < grid.length; i++) {
@@ -101,7 +102,6 @@ for (let i = 0; i < grid.length; i++) {
 let snakeCoord = [
   [3, 1],
   [3, 2],
-  [3, 3],
 ];
 
 grid = drawSnakeInGrid(snakeCoord, grid);
