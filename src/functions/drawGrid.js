@@ -3,9 +3,11 @@ export default function drawGrid(columnRow) {
 
   for (let r = 0; r < columnRow; r++) {
     let row = [];
+
     for (let c = 0; c < columnRow; c++) {
       row.push(null);
     }
+
     drawnGrid.push(row);
   }
 

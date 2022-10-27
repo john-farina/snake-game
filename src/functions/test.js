@@ -16,7 +16,25 @@ function drawGrid(columnRow) {
   return drawnGrid;
 }
 
-function moveSnakeInGrid(snakeCoords, direction) {
+function clearSnakeFromGrid(grid) {
+  for (let i = 0; i < grid.length; i++) {
+    // console.log(newGrid[i]);
+    for (let c = 0; c < grid[i].length; c++) {
+      // console.log(newGrid[i][c]);
+      if (grid[i][c] === "HEAD") {
+        grid[i][c] = null;
+      }
+      if (grid[i][c] === "BODY") {
+        grid[i][c] = null;
+      }
+      if (grid[i][c] === "TAIL") {
+        grid[i][c] = null;
+      }
+    }
+  }
+}
+
+function moveSnakeCoords(snakeCoords, direction) {
   let snakeCoord = _.cloneDeep(snakeCoords);
   // first grid test (using default coord - no moving)
   // drawSnakeInGrid(snakeCoord);
@@ -60,17 +78,19 @@ function moveSnakeInGrid(snakeCoords, direction) {
 function drawSnakeInGrid(snakeCoord, grid, direction) {
   let coords = _.cloneDeep(snakeCoord);
 
-  // console.log("before");
-  // for (let i = 0; i < coords.length; i++) {
-  //   console.log(coords[i]);
-  // }
+  clearSnakeFromGrid(grid);
 
   if (direction === "left") {
-    coords = moveSnakeInGrid(coords, "left");
-    // for (let i = 0; i < coords.length; i++) {
-    //   console.log(coords[i]);
-    // }
-    // console.log("COORDS", coords);
+    coords = moveSnakeCoords(coords, "left");
+  }
+  if (direction === "right") {
+    coords = moveSnakeCoords(coords, "right");
+  }
+  if (direction === "up") {
+    coords = moveSnakeCoords(coords, "up");
+  }
+  if (direction === "down") {
+    coords = moveSnakeCoords(coords, "down");
   }
 
   // draw snake in grid using snakeCoords
@@ -92,38 +112,14 @@ function drawSnakeInGrid(snakeCoord, grid, direction) {
   return grid;
 }
 
-//// THE TEST
+//// THE TEST (switch each functions to seperate ones, same functionality(easier))
 let grid = drawGrid(4);
 
-for (let i = 0; i < grid.length; i++) {
-  console.log(grid[i]);
-}
-
 let snakeCoord = [
-  [3, 1],
   [3, 2],
+  [3, 1],
 ];
 
-grid = drawSnakeInGrid(snakeCoord, grid);
+grid = drawSnakeInGrid(snakeCoord, grid, "right");
 
-console.log("spawn snake:");
-for (let i = 0; i < grid.length; i++) {
-  console.log(grid[i]);
-}
-
-// snakeCoord = moveSnakeInGrid(snakeCoord, "left");
-grid = drawSnakeInGrid([], grid);
-grid = drawSnakeInGrid(snakeCoord, grid, "left");
-
-console.log("move snake left:");
-for (let i = 0; i < grid.length; i++) {
-  console.log(grid[i]);
-}
-
-//RETURNS WITH THE OLD TAIL STILL IN PLACE (STILL LOGGING OLD GRID NOT RESETING SNAKE(have to add function to reset all snake before placing in grid might be good for a class))
-
-// what this returns at end
-// (4) [null, null, null, null]
-// (4) [null, null, null, null]
-// (4) [null, null, null, null]
-// (4) ['HEAD', 'BODY', 'TAIL', 'TAIL']
+/// (! FIXED WITH A CLEAR SNAKE FROM GRID FUNCTION !) ///
