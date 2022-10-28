@@ -15,25 +15,42 @@ function App() {
     [4, 4],
     [4, 5],
     [4, 6],
+    [4, 7],
+    [4, 8],
   ]);
+  let [snakeDirection, setSnakeDirection] = useState("right");
 
   useEffect(() => {
-    setInterval(() => {}, 1000);
-    setGrid((gri) => drawSnakeInGrid(snake, gri));
-  }, [snake]);
+    const snakeInterval = setInterval(() => {
+      setSnake((s) => moveSnakeCoords(s, snakeDirection));
+    }, 200);
+
+    const gridInterval = setInterval(() => {
+      setGrid((g) => drawSnakeInGrid(snake, g));
+    }, 200);
+
+    return () => {
+      clearInterval(snakeInterval);
+      clearInterval(gridInterval);
+    };
+  }, [snake, snakeDirection]);
 
   function allClicks(direction) {
     if (direction === "left") {
-      setSnake(() => moveSnakeCoords(snake, "left"));
+      let string = "left";
+      setSnakeDirection(() => string);
     }
     if (direction === "right") {
-      setSnake(() => moveSnakeCoords(snake, "right"));
+      let string = "right";
+      setSnakeDirection(() => string);
     }
     if (direction === "down") {
-      setSnake(() => moveSnakeCoords(snake, "down"));
+      let string = "down";
+      setSnakeDirection(() => string);
     }
     if (direction === "up") {
-      setSnake(() => moveSnakeCoords(snake, "up"));
+      let string = "up";
+      setSnakeDirection(() => string);
     }
   }
 
@@ -81,13 +98,7 @@ function App() {
           );
         })}
       </div>
-      <button
-        onClick={() => {
-          allClicks("left");
-        }}
-      >
-        left
-      </button>
+      <button onClick={() => allClicks("left")}>left</button>
 
       <button
         onClick={() => {
