@@ -1,4 +1,6 @@
 import drawSnakeInGrid from "./functions/drawSnakeInGrid";
+import moveSnakeCoords from "./functions/moveSnakeCoords";
+import growSnakeByOne from "./functions/growSnakeByOne";
 import drawGrid from "./functions/drawGrid";
 
 // DEFAULT GRID I SET UP IS THIS
@@ -9,6 +11,32 @@ import drawGrid from "./functions/drawGrid";
 // w  2 [null, null, null, null],
 //    3 [null, null, null, null],
 
+test("should grow one length to the right", () => {
+  //0 - - - -
+  //1 - H T -
+  //2 - - - -
+  //3 - - - -
+  let snakeDirection = "left";
+  let snakeCoords = [
+    [1, 1],
+    [1, 2],
+  ];
+  let grid = drawGrid(4);
+
+  snakeCoords = growSnakeByOne(snakeCoords, snakeDirection);
+  grid = drawSnakeInGrid(snakeCoords, grid);
+
+  let movedGrid = [
+    [null, null, null, null],
+    [null, "HEAD", "BODY", "TAIL"],
+    [null, null, null, null],
+    [null, null, null, null],
+  ];
+
+  expect(grid).toStrictEqual(movedGrid);
+});
+
+///////////////////////////////// MOVEMENT TESTS
 test("should move one space down", () => {
   let snakeCoords = [
     [2, 3],
@@ -30,8 +58,8 @@ test("should move one space down", () => {
   //spawn snake
   grid = drawSnakeInGrid(snakeCoords, grid);
 
-  //move snake
-  grid = drawSnakeInGrid(snakeCoords, grid, "down");
+  snakeCoords = moveSnakeCoords(snakeCoords, "down");
+  grid = drawSnakeInGrid(snakeCoords, grid);
 
   expect(grid).toStrictEqual(movedGrid);
 });
@@ -58,8 +86,8 @@ test("should move one space up", () => {
   //spawn snake
   grid = drawSnakeInGrid(snakeCoords, grid);
 
-  //move snake
-  grid = drawSnakeInGrid(snakeCoords, grid, "up");
+  snakeCoords = moveSnakeCoords(snakeCoords, "up");
+  grid = drawSnakeInGrid(snakeCoords, grid);
 
   expect(grid).toStrictEqual(movedGrid);
 });
@@ -86,8 +114,8 @@ test("should move one space to right", () => {
   //spawn snake
   grid = drawSnakeInGrid(snakeCoords, grid);
 
-  //move snake
-  grid = drawSnakeInGrid(snakeCoords, grid, "right");
+  snakeCoords = moveSnakeCoords(snakeCoords, "right");
+  grid = drawSnakeInGrid(snakeCoords, grid);
 
   expect(grid).toStrictEqual(movedGrid);
 });
@@ -114,8 +142,8 @@ test("should move one space to left", () => {
   //spawn snake
   grid = drawSnakeInGrid(snakeCoords, grid);
 
-  //move snake
-  grid = drawSnakeInGrid(snakeCoords, grid, "left");
+  snakeCoords = moveSnakeCoords(snakeCoords, "left");
+  grid = drawSnakeInGrid(snakeCoords, grid);
 
   expect(grid).toStrictEqual(movedGrid);
 });

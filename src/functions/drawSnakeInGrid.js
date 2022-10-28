@@ -2,23 +2,10 @@ import clearSnakeFromGrid from "./clearSnakeFromGrid";
 import moveSnakeCoords from "./moveSnakeCoords";
 const _ = require("lodash");
 
-export default function drawSnakeInGrid(snakeCoord, grid, direction) {
+export default function drawSnakeInGrid(snakeCoord, grid) {
   let coords = _.cloneDeep(snakeCoord);
 
   grid = clearSnakeFromGrid(grid);
-
-  if (direction === "left") {
-    coords = moveSnakeCoords(coords, "left");
-  }
-  if (direction === "right") {
-    coords = moveSnakeCoords(coords, "right");
-  }
-  if (direction === "up") {
-    coords = moveSnakeCoords(coords, "up");
-  }
-  if (direction === "down") {
-    coords = moveSnakeCoords(coords, "down");
-  }
 
   // draw snake in grid using snakeCoords
   for (let i = 0; i < coords.length; i++) {
