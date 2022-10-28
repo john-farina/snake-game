@@ -29,13 +29,12 @@ export default function growSnakeByOne(snakeCoords, snakeDirection) {
       coords[coords.length - 1][1],
     ]);
   }
-  // 0 1 2 3
-  // 0 1 T 3 {t:[r1,c2]}
-  // 0 1 H 3 {h:[r2,c2]}
-  // 0 1 2 3
+
   if (snakeDirection === "down") {
     coords.push([
+      //|tail row minus one (going down so its rows)
       coords[coords.length - 1][0] - 1,
+      //| tail column the same as tail (want it to be the same just up one row)
       coords[coords.length - 1][1],
     ]);
   }

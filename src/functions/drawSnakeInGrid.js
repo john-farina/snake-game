@@ -1,5 +1,4 @@
 import clearSnakeFromGrid from "./clearSnakeFromGrid";
-import moveSnakeCoords from "./moveSnakeCoords";
 const _ = require("lodash");
 
 export default function drawSnakeInGrid(snakeCoord, grid) {

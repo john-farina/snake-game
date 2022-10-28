@@ -1,27 +1,35 @@
 import "./App.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "normalize.css";
+import drawGrid from "./functions/drawGrid";
+import drawSnakeInGrid from "./functions/drawSnakeInGrid";
+import moveSnakeCoords from "./functions/moveSnakeCoords";
 
-// arrays with a array, strings null, "F", "S"
+// HEAD === Snake Head
+// BODY === Snake Body
+// TAIL === Snake Tail
 
 function App() {
-  // SH === Snake Head
-  // SB === Snake Body
-  // ST === Snake Tai
-  let [grid, setGrid] = useState([
-    [null, null, null, "F", null, null],
-    [null, null, null, null, null, null],
-    [null, "SH", "SB", "ST", null, null],
-    [null, null, null, null, null, null],
-    [null, null, null, null, null, null],
-    [null, null, null, null, null, null],
+  let [grid, setGrid] = useState(drawGrid(10));
+  let [snake, setSnake] = useState([
+    [4, 4],
+    [4, 5],
+    [4, 6],
   ]);
 
-  function addRandomFoodToGrid(array) {}
-  // console.log(grid);
+  useEffect(() => {
+    setInterval(() => {
+      setGrid(() => drawSnakeInGrid(snake, grid));
+    }, 1000);
+  }, []);
+
+  function leftClick() {
+    setSnake(() => moveSnakeCoords(snake, "left"));
+  }
+
   return (
     <>
-      <h1>hello</h1>
+      <h1>s n a k e</h1>
       <div className="gridContainer">
         {grid.map((row) => {
           return (
@@ -39,7 +47,7 @@ function App() {
                       <p>FOOD</p>
                     </div>
                   );
-                } else if (gridItem === "SH") {
+                } else if (gridItem === "HEAD") {
                   return (
                     <div className="box snake">
                       <p>S-HEAD</p>
@@ -49,9 +57,9 @@ function App() {
                       </div>
                     </div>
                   );
-                } else if (gridItem === "SB") {
+                } else if (gridItem === "BODY") {
                   return <div className="box snake snakeBody">S-BODY</div>;
-                } else if (gridItem === "ST") {
+                } else if (gridItem === "TAIL") {
                   return (
                     <div className="box snake snakeTail">
                       <p>S-TAIL</p>
@@ -63,6 +71,13 @@ function App() {
           );
         })}
       </div>
+      <button
+        onClick={() => {
+          leftClick();
+        }}
+      >
+        left
+      </button>
     </>
   );
 }
