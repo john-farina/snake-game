@@ -18,13 +18,23 @@ function App() {
   ]);
 
   useEffect(() => {
-    setInterval(() => {
-      setGrid(() => drawSnakeInGrid(snake, grid));
-    }, 1000);
-  }, []);
+    setInterval(() => {}, 1000);
+    setGrid((gri) => drawSnakeInGrid(snake, gri));
+  }, [snake]);
 
-  function leftClick() {
-    setSnake(() => moveSnakeCoords(snake, "left"));
+  function allClicks(direction) {
+    if (direction === "left") {
+      setSnake(() => moveSnakeCoords(snake, "left"));
+    }
+    if (direction === "right") {
+      setSnake(() => moveSnakeCoords(snake, "right"));
+    }
+    if (direction === "down") {
+      setSnake(() => moveSnakeCoords(snake, "down"));
+    }
+    if (direction === "up") {
+      setSnake(() => moveSnakeCoords(snake, "up"));
+    }
   }
 
   return (
@@ -73,10 +83,34 @@ function App() {
       </div>
       <button
         onClick={() => {
-          leftClick();
+          allClicks("left");
         }}
       >
         left
+      </button>
+
+      <button
+        onClick={() => {
+          allClicks("up");
+        }}
+      >
+        up
+      </button>
+
+      <button
+        onClick={() => {
+          allClicks("down");
+        }}
+      >
+        down
+      </button>
+
+      <button
+        onClick={() => {
+          allClicks("right");
+        }}
+      >
+        right
       </button>
     </>
   );
