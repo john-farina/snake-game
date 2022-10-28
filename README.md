@@ -1,6 +1,6 @@
 - [x] move snake 1
 - [x] turn snake dif directions
-- [ ] add snake length when eat food
+- [x] add snake length when eat food
 - [ ] detect when snake hits food
 - [ ] detect when snake hits the wall
 - [ ] detect when snake hits itself

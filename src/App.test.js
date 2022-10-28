@@ -11,7 +11,83 @@ import drawGrid from "./functions/drawGrid";
 // w  2 [null, null, null, null],
 //    3 [null, null, null, null],
 
-test("should grow one length to the right", () => {
+///////////////////////////////// GROW TESTS
+test("should grow one length facing downwards", () => {
+  //0 - - - -
+  //1 - - T -
+  //2 - - H -
+  //3 - - - -
+  let snakeDirection = "down";
+  let snakeCoords = [
+    [2, 2],
+    [1, 2],
+  ];
+  let grid = drawGrid(4);
+
+  snakeCoords = growSnakeByOne(snakeCoords, snakeDirection);
+  grid = drawSnakeInGrid(snakeCoords, grid);
+
+  let movedGrid = [
+    [null, null, "TAIL", null],
+    [null, null, "BODY", null],
+    [null, null, "HEAD", null],
+    [null, null, null, null],
+  ];
+
+  expect(grid).toStrictEqual(movedGrid);
+});
+
+test("should grow one length facing upwards", () => {
+  //0 - - - -
+  //1 - - H -
+  //2 - - T -
+  //3 - - - -
+  let snakeDirection = "up";
+  let snakeCoords = [
+    [1, 2],
+    [2, 2],
+  ];
+  let grid = drawGrid(4);
+
+  snakeCoords = growSnakeByOne(snakeCoords, snakeDirection);
+  grid = drawSnakeInGrid(snakeCoords, grid);
+
+  let movedGrid = [
+    [null, null, null, null],
+    [null, null, "HEAD", null],
+    [null, null, "BODY", null],
+    [null, null, "TAIL", null],
+  ];
+
+  expect(grid).toStrictEqual(movedGrid);
+});
+
+test("should grow one length facing right", () => {
+  //0 - - - -
+  //1 - T H -
+  //2 - - - -
+  //3 - - - -
+  let snakeDirection = "right";
+  let snakeCoords = [
+    [1, 2],
+    [1, 1],
+  ];
+  let grid = drawGrid(4);
+
+  snakeCoords = growSnakeByOne(snakeCoords, snakeDirection);
+  grid = drawSnakeInGrid(snakeCoords, grid);
+
+  let movedGrid = [
+    [null, null, null, null],
+    ["TAIL", "BODY", "HEAD", null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ];
+
+  expect(grid).toStrictEqual(movedGrid);
+});
+
+test("should grow one length facing left", () => {
   //0 - - - -
   //1 - H T -
   //2 - - - -
