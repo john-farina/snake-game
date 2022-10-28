@@ -19,10 +19,15 @@ function App() {
     [4, 8],
   ]);
   let [snakeDirection, setSnakeDirection] = useState("right");
+  let [gameStart, setGameStart] = useState(true);
 
   useEffect(() => {
     const snakeInterval = setInterval(() => {
-      setSnake((s) => moveSnakeCoords(s, snakeDirection));
+      if (gameStart) {
+        setSnake((s) =>
+          moveSnakeCoords(s, snakeDirection, grid.length, setGameStart)
+        );
+      }
     }, 200);
 
     const gridInterval = setInterval(() => {
@@ -98,6 +103,8 @@ function App() {
           );
         })}
       </div>
+      <button onClick={() => setGameStart(true)}>start</button>
+
       <button onClick={() => allClicks("left")}>left</button>
 
       <button

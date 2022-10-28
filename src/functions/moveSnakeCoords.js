@@ -1,6 +1,11 @@
 const _ = require("lodash");
 
-export default function moveSnakeCoords(snakeCoords, direction) {
+export default function moveSnakeCoords(
+  snakeCoords,
+  direction,
+  gridLength,
+  setGameStart
+) {
   let snakeCoord = _.cloneDeep(snakeCoords);
   // first grid test (using default coord - no moving)
   // drawSnakeInGrid(snakeCoord);
@@ -8,7 +13,15 @@ export default function moveSnakeCoords(snakeCoords, direction) {
   //remove tail in array then place new head in front
   snakeCoord.pop();
 
+  //if snake head is at edge stop
+
+  //if head row = 0 while going left
+  //if head row = gridLength - 1 while going right
+
   if (direction === "left") {
+    if (snakeCoord[0][1] === 0) {
+      setGameStart(false);
+    }
     // place FIRST: get head row & get head column - 1 = (left)
     snakeCoord.unshift([snakeCoord[0][0], snakeCoord[0][1] - 1]);
 
@@ -17,6 +30,10 @@ export default function moveSnakeCoords(snakeCoords, direction) {
   }
 
   if (direction === "right") {
+    //WALL DETECTION
+    if (snakeCoord[0][1] === gridLength - 1) {
+      setGameStart(false);
+    }
     // take head coord and add one to column (right)
     snakeCoord.unshift([snakeCoord[0][0], snakeCoord[0][1] + 1]);
 
@@ -25,6 +42,10 @@ export default function moveSnakeCoords(snakeCoords, direction) {
   }
 
   if (direction === "up") {
+    if (snakeCoord[0][0] === 0) {
+      alert("hit");
+      setGameStart(false);
+    }
     // get head row - 1 (up); take head column num (default for up)
     snakeCoord.unshift([snakeCoord[0][0] - 1, snakeCoord[0][1]]);
 
@@ -33,6 +54,10 @@ export default function moveSnakeCoords(snakeCoords, direction) {
   }
 
   if (direction === "down") {
+    if (snakeCoord[0][0] === gridLength - 1) {
+      alert("hit");
+      setGameStart(false);
+    }
     // get head row + 1 (down); take head column num (default for down)
     snakeCoord.unshift([snakeCoord[0][0] + 1, snakeCoord[0][1]]);
 
