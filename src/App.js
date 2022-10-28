@@ -28,11 +28,11 @@ function App() {
           moveSnakeCoords(s, snakeDirection, grid.length, setGameStart)
         );
       }
-    }, 200);
+    }, 140);
 
     const gridInterval = setInterval(() => {
       setGrid((g) => drawSnakeInGrid(snake, g));
-    }, 200);
+    }, 50);
 
     return () => {
       clearInterval(snakeInterval);
@@ -59,10 +59,27 @@ function App() {
     }
   }
 
+  const handleKeyDown = (event) => {
+    console.log("pressed ", event.key);
+    if (event.key === "ArrowUp") {
+      setSnakeDirection(() => "up");
+      console.log("up");
+    }
+    if (event.key === "ArrowDown") {
+      setSnakeDirection(() => "down");
+    }
+    if (event.key === "ArrowLeft") {
+      setSnakeDirection(() => "left");
+    }
+    if (event.key === "ArrowRight") {
+      setSnakeDirection(() => "right");
+    }
+  };
+
   return (
     <>
       <h1>s n a k e</h1>
-      <div className="gridContainer">
+      <div className="gridContainer" onKeyDown={handleKeyDown} tabIndex="0">
         {grid.map((row) => {
           return (
             <div className="gridRow">

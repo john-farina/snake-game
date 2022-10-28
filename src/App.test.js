@@ -11,6 +11,43 @@ import drawGrid from "./functions/drawGrid";
 // w  2 [null, null, null, null],
 //    3 [null, null, null, null],
 
+///////////////////////////////// EAT TESTS
+
+function drawFoodToGrid(foodCoords, grid) {
+  if (grid[foodCoords[0]][foodCoords[1]] === null) {
+    grid[foodCoords[0]][foodCoords[1]] = "FOOD";
+  }
+  return grid;
+}
+
+test("should grow by one when eat food", () => {
+  //0 - - - -
+  //1 - - - -
+  //      <=
+  //2 - f H T
+  //3 - - - -
+
+  let grid = drawGrid(4);
+  let snakeCoords = [
+    [2, 2],
+    [2, 3],
+  ];
+  let foodCoords = [2, 1];
+  //snake spawn
+  grid = drawSnakeInGrid(snakeCoords, grid);
+  //food spawn to left of snake
+  grid = drawFoodToGrid(foodCoords, grid);
+
+  console.log(grid);
+
+  let movedGrid = [
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, "HEAD", "BODY", "TAIL"],
+    [null, null, null, null],
+  ];
+});
+
 ///////////////////////////////// GROW TESTS
 test("should grow one length facing downwards", () => {
   //0 - - - -
