@@ -1,81 +1,86 @@
 import "./App.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import "normalize.css";
 import drawGrid from "./functions/drawGrid";
-import drawSnakeInGrid from "./functions/drawSnakeInGrid";
 import moveSnakeCoords from "./functions/moveSnakeCoords";
+import randomFoodCoords from "./functions/randomFoodCoords";
 
 // HEAD === Snake Head
 // BODY === Snake Body
 // TAIL === Snake Tail
 
 function App() {
-  let [grid, setGrid] = useState(drawGrid(10));
   let [snake, setSnake] = useState([
-    [4, 4],
-    [4, 5],
-    [4, 6],
-    [4, 7],
-    [3, 7],
-    [2, 7],
+    [8, 8],
+    [8, 9],
+    [7, 9],
+    [6, 9],
+    [5, 9],
+    [4, 9],
   ]);
-  let [snakeDirection, setSnakeDirection] = useState("right");
-  let [gameStart, setGameStart] = useState(true);
+  let [foodCoords, setFoodCoords] = useState(randomFoodCoords());
+  console.log(foodCoords);
+  const grid = useMemo(
+    () => drawGrid(10, snake, foodCoords),
+    [snake, foodCoords]
+  );
+
+  const snakeDirection = useRef("left");
+  const gameStart = useRef(false);
 
   useEffect(() => {
     const snakeInterval = setInterval(() => {
-      if (gameStart) {
-        setSnake((s) =>
-          moveSnakeCoords(s, snakeDirection, grid.length, setGameStart)
-        );
+      if (gameStart.current) {
+        setSnake((s) => moveSnakeCoords(s, snakeDirection.current));
       }
-    }, 140);
+    }, 120);
 
-    //comments //test //test //test
-
-    const gridInterval = setInterval(() => {
-      setGrid((g) => drawSnakeInGrid(snake, g));
-    }, 50);
-
-    return () => {
-      clearInterval(snakeInterval);
-      clearInterval(gridInterval);
-    };
-  }, [snake, snakeDirection]);
+    return () => clearInterval(snakeInterval);
+  }, []);
 
   function allClicks(direction) {
     if (direction === "left") {
-      let string = "left";
-      setSnakeDirection(() => string);
+      snakeDirection.current = "left";
     }
+
     if (direction === "right") {
-      let string = "right";
-      setSnakeDirection(() => string);
+      snakeDirection.current = "right";
     }
+
     if (direction === "down") {
-      let string = "down";
-      setSnakeDirection(() => string);
+      snakeDirection.current = "down";
     }
+
     if (direction === "up") {
-      let string = "up";
-      setSnakeDirection(() => string);
+      snakeDirection.current = "up";
     }
   }
 
   const handleKeyDown = (event) => {
     console.log("pressed ", event.key);
+
     if (event.key === "ArrowUp") {
-      setSnakeDirection(() => "up");
-      console.log("up");
+      allClicks("up");
     }
+
     if (event.key === "ArrowDown") {
-      setSnakeDirection(() => "down");
+      allClicks("down");
     }
+
     if (event.key === "ArrowLeft") {
-      setSnakeDirection(() => "left");
+      allClicks("left");
     }
+
     if (event.key === "ArrowRight") {
-      setSnakeDirection(() => "right");
+      allClicks("right");
+    }
+
+    if (event.key === "Enter") {
+      if (!gameStart.current) {
+        gameStart.current = true;
+      } else {
+        gameStart.current = false;
+      }
     }
   };
 
@@ -93,7 +98,7 @@ function App() {
                       <p>GRID</p>
                     </div>
                   );
-                } else if (gridItem === "F") {
+                } else if (gridItem === "FOOD") {
                   return (
                     <div className="box food">
                       <p>FOOD</p>
@@ -102,7 +107,6 @@ function App() {
                 } else if (gridItem === "HEAD") {
                   return (
                     <div className="box snake">
-                      <p>S-HEAD</p>
                       <div className="snakeHead">
                         <div className="eye"></div>
                         <div className="eye"></div>
@@ -110,7 +114,7 @@ function App() {
                     </div>
                   );
                 } else if (gridItem === "BODY") {
-                  return <div className="box snake snakeBody">S-BODY</div>;
+                  return <div className="box snake snakeBody"></div>;
                 } else if (gridItem === "TAIL") {
                   return (
                     <div className="box snake snakeTail">
@@ -123,7 +127,6 @@ function App() {
           );
         })}
       </div>
-      <button onClick={() => setGameStart(true)}>start</button>
 
       <button onClick={() => allClicks("left")}>left</button>
 
@@ -150,6 +153,10 @@ function App() {
       >
         right
       </button>
+
+      <button onClick={() => (gameStart.current = true)}>start</button>
+
+      <button onClick={() => (gameStart.current = false)}>stop</button>
     </>
   );
 }
