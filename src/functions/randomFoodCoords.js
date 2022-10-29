@@ -1,7 +1,7 @@
 export default function randomFoodCoords() {
   // let maxNum = grid.length - 1;
-  let ran1 = Math.floor(Math.random() * 10);
-  let ran2 = Math.floor(Math.random() * 10);
+  let ran1 = Math.floor(Math.random() * 9);
+  let ran2 = Math.floor(Math.random() * 9);
   if (ran1 !== 0) {
     ran1 += 1;
   }
