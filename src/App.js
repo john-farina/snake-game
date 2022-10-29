@@ -1,9 +1,10 @@
 import "./App.scss";
-import { useEffect, useMemo, useRef, useState } from "react";
 import "normalize.css";
+import { useEffect, useMemo, useRef, useState } from "react";
 import drawGrid from "./functions/drawGrid";
 import moveSnakeCoords from "./functions/moveSnakeCoords";
 import randomFoodCoords from "./functions/randomFoodCoords";
+import growSnakeByOne from "./functions/growSnakeByOne";
 
 // HEAD === Snake Head
 // BODY === Snake Body
@@ -11,20 +12,48 @@ import randomFoodCoords from "./functions/randomFoodCoords";
 
 function App() {
   let [snake, setSnake] = useState([
-    [8, 8],
-    [8, 9],
-    [7, 9],
-    [6, 9],
-    [5, 9],
-    [4, 9],
+    [8, 12],
+    [8, 13],
   ]);
-  const foodCoords = useRef(randomFoodCoords());
+  const foodCoords = useRef(randomFoodCoords(snake));
   const grid = useMemo(
-    () => drawGrid(10, snake, foodCoords.current),
+    () => drawGrid(15, snake, foodCoords.current),
     [snake, foodCoords.current]
   );
   const snakeDirection = useRef("left");
   const gameStart = useRef(false);
+
+  function eatCube() {
+    setSnake((s) => growSnakeByOne(s, snakeDirection.current));
+    foodCoords.current = randomFoodCoords(snake);
+  }
+
+  function foodToHeadCollision(snakeHeadCoords, foodCoords) {
+    if (
+      snakeHeadCoords[0][0] === foodCoords[0] &&
+      snakeHeadCoords[0][1] === foodCoords[1]
+    ) {
+      eatCube();
+    } else {
+    }
+  }
+
+  const foodCollision = useMemo(
+    () => foodToHeadCollision(snake, foodCoords.current),
+    [snake]
+  );
+
+  function snakeToSnakeCollision(snake) {
+    let headCoords = snake[0];
+
+    for (let i = 1; i < snake.length; i++) {
+      if (headCoords[0] === snake[i][0] && headCoords[1] === snake[i][1]) {
+        gameStart.current = false;
+      }
+    }
+  }
+
+  const snakeCollision = useMemo(() => snakeToSnakeCollision(snake), [snake]);
 
   useEffect(() => {
     const snakeInterval = setInterval(() => {
@@ -38,24 +67,36 @@ function App() {
 
   function allClicks(direction) {
     if (direction === "left") {
-      snakeDirection.current = "left";
+      if (snakeDirection.current != "right") {
+        snakeDirection.current = "left";
+      }
     }
 
     if (direction === "right") {
-      snakeDirection.current = "right";
+      if (snakeDirection.current != "left") {
+        snakeDirection.current = "right";
+      }
     }
 
     if (direction === "down") {
-      snakeDirection.current = "down";
+      if (snakeDirection.current != "up") {
+        snakeDirection.current = "down";
+      }
     }
 
     if (direction === "up") {
-      snakeDirection.current = "up";
+      if (snakeDirection.current != "down") {
+        snakeDirection.current = "up";
+      }
     }
   }
 
   const handleKeyDown = (event) => {
     console.log("pressed ", event.key);
+
+    if (event.key === "f") {
+      eatCube();
+    }
 
     if (event.key === "ArrowUp") {
       allClicks("up");
@@ -97,14 +138,10 @@ function App() {
                     </div>
                   );
                 } else if (gridItem === "FOOD") {
-                  return (
-                    <div className="box food">
-                      <p>FOOD</p>
-                    </div>
-                  );
+                  return <div className="box food"></div>;
                 } else if (gridItem === "HEAD") {
                   return (
-                    <div className="box snake">
+                    <div className={`box snake ${snakeDirection.current}`}>
                       <div className="snakeHead">
                         <div className="eye"></div>
                         <div className="eye"></div>
@@ -126,31 +163,39 @@ function App() {
         })}
       </div>
 
-      <button onClick={() => allClicks("left")}>left</button>
+      <div className="buttonContainer">
+        <div className="top">
+          <button
+            onClick={() => {
+              allClicks("up");
+            }}
+          >
+            up
+          </button>
+        </div>
 
-      <button
-        onClick={() => {
-          allClicks("up");
-        }}
-      >
-        up
-      </button>
+        <div className="middle">
+          <button onClick={() => allClicks("left")}>left</button>
 
-      <button
-        onClick={() => {
-          allClicks("down");
-        }}
-      >
-        down
-      </button>
+          <button
+            onClick={() => {
+              allClicks("right");
+            }}
+          >
+            right
+          </button>
+        </div>
 
-      <button
-        onClick={() => {
-          allClicks("right");
-        }}
-      >
-        right
-      </button>
+        <div className="bottom">
+          <button
+            onClick={() => {
+              allClicks("down");
+            }}
+          >
+            down
+          </button>
+        </div>
+      </div>
 
       <button onClick={() => (gameStart.current = true)}>start</button>
 
