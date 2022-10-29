@@ -5,6 +5,7 @@ import drawGrid from "./functions/drawGrid";
 import moveSnakeCoords from "./functions/moveSnakeCoords";
 import randomFoodCoords from "./functions/randomFoodCoords";
 import growSnakeByOne from "./functions/growSnakeByOne";
+import snakeToSnakeCollision from "./functions/snakeToSnakeCollision";
 
 // HEAD === Snake Head
 // BODY === Snake Body
@@ -43,17 +44,10 @@ function App() {
     [snake]
   );
 
-  function snakeToSnakeCollision(snake) {
-    let headCoords = snake[0];
-
-    for (let i = 1; i < snake.length; i++) {
-      if (headCoords[0] === snake[i][0] && headCoords[1] === snake[i][1]) {
-        gameStart.current = false;
-      }
-    }
-  }
-
-  const snakeCollision = useMemo(() => snakeToSnakeCollision(snake), [snake]);
+  const snakeCollision = useMemo(
+    () => snakeToSnakeCollision(snake, gameStart),
+    [snake]
+  );
 
   useEffect(() => {
     const snakeInterval = setInterval(() => {
@@ -67,25 +61,25 @@ function App() {
 
   function allClicks(direction) {
     if (direction === "left") {
-      if (snakeDirection.current != "right") {
+      if (snakeDirection.current !== "right") {
         snakeDirection.current = "left";
       }
     }
 
     if (direction === "right") {
-      if (snakeDirection.current != "left") {
+      if (snakeDirection.current !== "left") {
         snakeDirection.current = "right";
       }
     }
 
     if (direction === "down") {
-      if (snakeDirection.current != "up") {
+      if (snakeDirection.current !== "up") {
         snakeDirection.current = "down";
       }
     }
 
     if (direction === "up") {
-      if (snakeDirection.current != "down") {
+      if (snakeDirection.current !== "down") {
         snakeDirection.current = "up";
       }
     }
