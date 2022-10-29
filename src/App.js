@@ -120,6 +120,7 @@ function App() {
   return (
     <>
       <h1>s n a k e</h1>
+      <h2>{snakeDirection.current}</h2>
       <div className="gridContainer" onKeyDown={handleKeyDown} tabIndex="0">
         {grid.map((row) => {
           return (
