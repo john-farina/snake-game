@@ -91,26 +91,26 @@ function App() {
     }
   }
 
-  const handleKeyDown = (event) => {
-    console.log("pressed ", event.key);
+  const handleKeyDown = (event, direction) => {
+    console.log("pressed ", event);
 
     if (event.key === "f") {
       eatCube();
     }
 
-    if (event.key === "ArrowUp") {
+    if (event.key === "ArrowUp" || event === "MoveUp") {
       allClicks("up");
     }
 
-    if (event.key === "ArrowDown") {
+    if (event.key === "ArrowDown" || event === "MoveDown") {
       allClicks("down");
     }
 
-    if (event.key === "ArrowLeft") {
+    if (event.key === "ArrowLeft" || event === "MoveLeft") {
       allClicks("left");
     }
 
-    if (event.key === "ArrowRight") {
+    if (event.key === "ArrowRight" || event === "MoveRight") {
       allClicks("right");
     }
 
@@ -165,35 +165,17 @@ function App() {
 
       <div className="buttonContainer">
         <div className="top">
-          <button
-            onClick={() => {
-              allClicks("up");
-            }}
-          >
-            up
-          </button>
+          <button onClick={handleKeyDown.bind(this, "MoveUp")}>up</button>
         </div>
 
         <div className="middle">
-          <button onClick={() => allClicks("left")}>left</button>
+          <button onClick={handleKeyDown.bind(this, "MoveLeft")}>left</button>
 
-          <button
-            onClick={() => {
-              allClicks("right");
-            }}
-          >
-            right
-          </button>
+          <button onClick={handleKeyDown.bind(this, "MoveRight")}>right</button>
         </div>
 
         <div className="bottom">
-          <button
-            onClick={() => {
-              allClicks("down");
-            }}
-          >
-            down
-          </button>
+          <button onClick={handleKeyDown.bind(this, "MoveDown")}>down</button>
         </div>
       </div>
 
