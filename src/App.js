@@ -16,7 +16,8 @@ function App() {
     [4, 5],
     [4, 6],
     [4, 7],
-    [4, 8],
+    [3, 7],
+    [2, 7],
   ]);
   let [snakeDirection, setSnakeDirection] = useState("right");
   let [gameStart, setGameStart] = useState(true);
