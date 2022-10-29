@@ -18,13 +18,11 @@ function App() {
     [5, 9],
     [4, 9],
   ]);
-  let [foodCoords, setFoodCoords] = useState(randomFoodCoords());
-  console.log(foodCoords);
+  const foodCoords = useRef(randomFoodCoords());
   const grid = useMemo(
-    () => drawGrid(10, snake, foodCoords),
-    [snake, foodCoords]
+    () => drawGrid(10, snake, foodCoords.current),
+    [snake, foodCoords.current]
   );
-
   const snakeDirection = useRef("left");
   const gameStart = useRef(false);
 
