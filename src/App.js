@@ -160,17 +160,37 @@ function App() {
 
       <div className="buttonContainer">
         <div className="top">
-          <button onClick={handleKeyDown.bind(this, "MoveUp")}>up</button>
+          <button
+            onTouchStart={handleKeyDown.bind(this, "MoveUp")}
+            onClick={handleKeyDown.bind(this, "MoveUp")}
+          >
+            up
+          </button>
         </div>
 
         <div className="middle">
-          <button onClick={handleKeyDown.bind(this, "MoveLeft")}>left</button>
+          <button
+            onTouchStart={handleKeyDown.bind(this, "MoveLeft")}
+            onClick={handleKeyDown.bind(this, "MoveLeft")}
+          >
+            left
+          </button>
 
-          <button onClick={handleKeyDown.bind(this, "MoveRight")}>right</button>
+          <button
+            onTouchStart={handleKeyDown.bind(this, "MoveRight")}
+            onClick={handleKeyDown.bind(this, "MoveRight")}
+          >
+            right
+          </button>
         </div>
 
         <div className="bottom">
-          <button onClick={handleKeyDown.bind(this, "MoveDown")}>down</button>
+          <button
+            onTouchStart={handleKeyDown.bind(this, "MoveDown")}
+            onClick={handleKeyDown.bind(this, "MoveDown")}
+          >
+            down
+          </button>
         </div>
       </div>
 
