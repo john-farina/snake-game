@@ -31,6 +31,8 @@ function App() {
       }
     }, 140);
 
+    //comments
+
     const gridInterval = setInterval(() => {
       setGrid((g) => drawSnakeInGrid(snake, g));
     }, 50);
