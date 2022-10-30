@@ -23,6 +23,7 @@ function App() {
   );
   const snakeDirection = useRef("left");
   const gameStart = useRef(false);
+  let snakeUpdateTime = 120;
 
   function eatCube() {
     setSnake((s) => growSnakeByOne(s, snakeDirection.current));
@@ -44,17 +45,70 @@ function App() {
     [snake]
   );
 
-  const snakeCollision = useMemo(
+  const snakeToSnakeCollis = useMemo(
     () => snakeToSnakeCollision(snake, gameStart),
     [snake]
   );
 
+  function snakeToWallCollision(snake, gridSize, gameStart) {
+    let size = gridSize - 1;
+    let headRow = snake[0][0];
+    let headColumn = snake[0][1];
+
+    // if going left & snakeColumn = 0 (LOOSE)
+    if (headColumn === 0) {
+      //time out so u can quickly move and avoid dying
+      setTimeout(() => {
+        if (snakeDirection.current === "left") {
+          alert("you stink loser");
+          gameStart.current = false;
+        }
+      }, snakeUpdateTime - 50);
+    }
+
+    // if going right & snakeColumn = gridSize (LOOSE)
+    if (headColumn === size) {
+      setTimeout(() => {
+        if (snakeDirection.current === "right") {
+          alert("you stink loser");
+          gameStart.current = false;
+        }
+      }, snakeUpdateTime - 50);
+    }
+
+    // if going up & snakeRow = 0 (LOOSE)
+    if (headRow === 0) {
+      setTimeout(() => {
+        if (snakeDirection.current === "up") {
+          alert("you stink loser");
+          gameStart.current = false;
+        }
+      }, snakeUpdateTime - 50);
+    }
+
+    // if going down & snakeRow = gridSize(LOOSE)
+    if (headRow === size) {
+      setTimeout(() => {
+        if (snakeDirection.current === "down") {
+          alert("you stink loser");
+          gameStart.current = false;
+        }
+      }, snakeUpdateTime - 50);
+    }
+  }
+
+  const snakeToWallCollis = useMemo(() => {
+    snakeToWallCollision(snake, grid.length, gameStart);
+  }, [snake]);
+
   useEffect(() => {
     const snakeInterval = setInterval(() => {
       if (gameStart.current) {
-        setSnake((s) => moveSnakeCoords(s, snakeDirection.current));
+        setSnake((s) =>
+          moveSnakeCoords(s, snakeDirection.current, grid.length)
+        );
       }
-    }, 120);
+    }, snakeUpdateTime);
 
     return () => clearInterval(snakeInterval);
   }, []);

@@ -1,6 +1,6 @@
 const _ = require("lodash");
 
-export default function moveSnakeCoords(snakeCoords, direction) {
+export default function moveSnakeCoords(snakeCoords, direction, gridLength) {
   let snakeCoord = _.cloneDeep(snakeCoords);
   //remove tail in array then place new head in front
   snakeCoord.pop();
