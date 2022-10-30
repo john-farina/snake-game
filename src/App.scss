@@ -11,14 +11,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1px;
+  // gap: 1px;
   flex-direction: column;
   background-color: gray;
 }
 
 .gridRow {
   display: flex;
-  gap: 1px;
+  // gap: 1px;
   padding: 0;
   line-height: 0;
 }
@@ -30,14 +30,15 @@ body {
   justify-content: center;
   width: 20px;
   height: 20px;
-  background-color: black;
-  color: rgb(51, 51, 51);
+  background-color: rgb(107, 182, 60);
+  border: solid 0.2px rgb(96, 165, 53);
+  color: rgba(51, 51, 51, 0);
   font-size: 0.4rem;
   overflow: hidden;
 }
 
 .snake {
-  background-color: green;
+  background-color: rgb(52, 106, 16);
   color: black;
 }
 
@@ -75,7 +76,7 @@ body {
   rotate: 90deg;
 }
 .right {
-  rotate: -180deg;
+  rotate: 180deg;
 }
 
 .buttonContainer {

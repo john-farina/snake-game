@@ -10,6 +10,7 @@ import snakeToSnakeCollision from "./functions/snakeToSnakeCollision";
 // HEAD === Snake Head
 // BODY === Snake Body
 // TAIL === Snake Tail
+// 15x15 grid always (idk why thats what i chose)
 
 function App() {
   let [snake, setSnake] = useState([
@@ -31,6 +32,7 @@ function App() {
   }
 
   function foodToHeadCollision(snakeHeadCoords, foodCoords) {
+    // console.time("foodToHeadCollision");
     if (
       snakeHeadCoords[0][0] === foodCoords[0] &&
       snakeHeadCoords[0][1] === foodCoords[1]
@@ -38,6 +40,7 @@ function App() {
       eatCube();
     } else {
     }
+    // console.timeEnd("foodToHeadCollision");
   }
 
   const foodCollision = useMemo(
@@ -99,12 +102,14 @@ function App() {
 
   const snakeToWallCollis = useMemo(() => {
     snakeToWallCollision(snake, grid.length, gameStart);
+    console.log("now");
   }, [snake]);
 
   useEffect(() => {
     const snakeInterval = setInterval(() => {
       if (gameStart.current) {
         setSnake((s) =>
+          // console.log("snakeloop", snakeDirection)
           moveSnakeCoords(s, snakeDirection.current, grid.length)
         );
       }
@@ -114,6 +119,7 @@ function App() {
   }, []);
 
   function allClicks(direction) {
+    console.log("allClicks", direction, new Date());
     if (direction === "left") {
       if (snakeDirection.current !== "right") {
         snakeDirection.current = "left";
@@ -141,6 +147,7 @@ function App() {
 
   const handleKeyDown = (event, direction) => {
     console.log("pressed ", event);
+    console.log("keyDown", new Date());
 
     if (event.key === "f") {
       eatCube();
@@ -200,11 +207,7 @@ function App() {
                 } else if (gridItem === "BODY") {
                   return <div className="box snake snakeBody"></div>;
                 } else if (gridItem === "TAIL") {
-                  return (
-                    <div className="box snake snakeTail">
-                      <p>S-TAIL</p>
-                    </div>
-                  );
+                  return <div className="box snake snakeTail"></div>;
                 }
               })}
             </div>
@@ -215,8 +218,8 @@ function App() {
       <div className="buttonContainer">
         <div className="top">
           <button
-            onTouchStart={handleKeyDown.bind(this, "MoveUp")}
-            onClick={handleKeyDown.bind(this, "MoveUp")}
+            onTouchStart={() => handleKeyDown("MoveUp")}
+            onClick={() => handleKeyDown("MoveUp")}
           >
             up
           </button>
@@ -224,15 +227,15 @@ function App() {
 
         <div className="middle">
           <button
-            onTouchStart={handleKeyDown.bind(this, "MoveLeft")}
-            onClick={handleKeyDown.bind(this, "MoveLeft")}
+            onTouchStart={() => handleKeyDown("MoveLeft")}
+            onClick={() => handleKeyDown("MoveLeft")}
           >
             left
           </button>
 
           <button
-            onTouchStart={handleKeyDown.bind(this, "MoveRight")}
-            onClick={handleKeyDown.bind(this, "MoveRight")}
+            onTouchStart={() => handleKeyDown("MoveRight")}
+            onClick={() => handleKeyDown("MoveRight")}
           >
             right
           </button>
@@ -240,8 +243,8 @@ function App() {
 
         <div className="bottom">
           <button
-            onTouchStart={handleKeyDown.bind(this, "MoveDown")}
-            onClick={handleKeyDown.bind(this, "MoveDown")}
+            onTouchStart={() => handleKeyDown("MoveDown")}
+            onClick={() => handleKeyDown("MoveDown")}
           >
             down
           </button>
