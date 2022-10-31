@@ -230,6 +230,7 @@ $darkerGreen: rgb(95, 126, 75);
     // background-color: red;
 
     button {
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -237,6 +238,9 @@ $darkerGreen: rgb(95, 126, 75);
       height: 50px;
       border-radius: 40px;
       border: solid 2px black;
+      &:hover {
+        filter: brightness(70%);
+      }
     }
     .upButton {
       background-color: rgb(219, 105, 105);
