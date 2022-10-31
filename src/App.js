@@ -227,6 +227,7 @@ function App() {
       {/* <h1>s n a k e</h1>
       <h2>{snakeDirection.current}</h2> */}
       <main className="device" onKeyDown={handleKeyDown} tabIndex="0">
+        <div className="topLight"></div>
         <div className="gridContainer">
           <div className={`popUpScreen endScreen ${endScreenClass}`}>
             <p className="words">{scoreBasedQuotes(snake.length - 2)}</p>
@@ -236,6 +237,7 @@ function App() {
               {scoreThree}
             </p>
           </div>
+
           <div className="topRow">
             <div className="scoreCounter">
               <div className="number">
@@ -249,6 +251,7 @@ function App() {
               </div>
             </div>
           </div>
+
           {grid.map((row) => {
             return (
               <div className="gridRow">

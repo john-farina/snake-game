@@ -28,6 +28,31 @@ $darkerGreen: rgb(95, 126, 75);
   width: $deviceWidth;
   height: $deviceHeight;
   border-radius: 3px;
+
+  .topLight {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50px;
+    margin-left: 10px;
+    margin-top: 10px;
+    background-color: rgb(164, 116, 116);
+    animation: blink 0.9s infinite ease-in-out;
+  }
+}
+
+@keyframes blink {
+  0% {
+    background-color: rgb(164, 116, 116);
+  }
+  50% {
+    background-color: rgb(170, 33, 33);
+  }
+  100% {
+    background-color: rgb(164, 116, 116);
+  }
 }
 
 .gridContainer {
