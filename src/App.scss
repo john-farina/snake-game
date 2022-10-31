@@ -209,7 +209,7 @@ $darkerGreen: rgb(95, 126, 75);
   rotate: 90deg;
 }
 .right {
-  rotate: 180deg;
+  rotate: -360deg;
 }
 
 .buttonContainer {
@@ -244,7 +244,10 @@ $darkerGreen: rgb(95, 126, 75);
       border: solid 4px black;
 
       &:hover {
-        filter: brightness(70%);
+        filter: brightness(80%);
+      }
+      &:active {
+        filter: brightness(90%);
       }
     }
     .upButton {
