@@ -224,8 +224,6 @@ function App() {
 
   return (
     <>
-      {/* <h1>s n a k e</h1>
-      <h2>{snakeDirection.current}</h2> */}
       <main className="device" onKeyDown={handleKeyDown} tabIndex="0">
         <div className="topLight"></div>
         <div className="gridContainer">
@@ -284,12 +282,6 @@ function App() {
           })}
         </div>
 
-        <div className="middleRow">
-          <button className="leaderBoardBtn">
-            <img className="leadImage" src={LeaderBoardIcon} alt="" />
-          </button>
-        </div>
-
         <div className="buttonContainer">
           <div className="middle">
             <button
@@ -330,20 +322,26 @@ function App() {
           </div>
         </div>
 
-        <div className="bottomButton">
-          <button onClick={() => (gameStart.current = true)}>start</button>
-
-          <button onClick={() => (gameStart.current = false)}>stop</button>
-
-          <button
-            onClick={() => {
-              resetGame();
-            }}
-          >
-            reset
-          </button>
-        </div>
+        <div className="bottomButton"></div>
       </main>
+
+      <div className="middleRow">
+        <button className="leaderBoardBtn">
+          <img className="leadImage" src={LeaderBoardIcon} alt="" />
+        </button>
+      </div>
+
+      <button onClick={() => (gameStart.current = true)}>start</button>
+
+      <button onClick={() => (gameStart.current = false)}>stop</button>
+
+      <button
+        onClick={() => {
+          resetGame();
+        }}
+      >
+        reset
+      </button>
     </>
   );
 }

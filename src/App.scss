@@ -13,7 +13,7 @@ body {
 }
 
 $deviceWidth: 370px;
-$deviceHeight: 620px;
+$deviceHeight: 570px;
 $greenScreen: rgb(104, 146, 30);
 $darkerGreen: rgb(95, 126, 75);
 
@@ -23,7 +23,7 @@ $darkerGreen: rgb(95, 126, 75);
   align-items: center;
   position: relative;
   justify-content: center;
-  margin-top: 80px;
+  margin-top: 10px;
   background-color: rgb(233, 232, 226);
   width: $deviceWidth;
   height: $deviceHeight;
@@ -135,9 +135,24 @@ $darkerGreen: rgb(95, 126, 75);
       text-align: center;
     }
     .words {
+      color: rgb(0, 0, 0);
       margin-left: 20px;
       font-size: 1.7rem;
+      animation: endMove 1.5s infinite steps(5);
     }
+
+    @keyframes endMove {
+      0% {
+        transform: scale(100%);
+      }
+      50% {
+        transform: scale(120%);
+      }
+      100% {
+        transform: scale(100%);
+      }
+    }
+
     .score {
       margin-left: 10px;
       margin-top: 20px;
