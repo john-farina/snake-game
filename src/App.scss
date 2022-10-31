@@ -1,24 +1,94 @@
+@font-face {
+  font-family: Arcade;
+  src: url("./fonts/Arcade.TTF");
+}
+
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgb(197, 197, 197);
+  background-color: rgb(46, 46, 46);
+  // font-family: Arcade;
+}
+
+$deviceWidth: 390px;
+$deviceHeight: 750px;
+$greenScreen: rgb(107, 182, 60);
+$darkerGreen: rgb(95, 126, 75);
+
+.device {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+  margin-top: 20px;
+  background-color: rgb(233, 232, 226);
+  width: $deviceWidth;
+  height: $deviceHeight;
+  border-radius: 3px;
 }
 
 .gridContainer {
-  width: 100%;
+  position: relative;
+  // padding-top: 15px;
+  // width: 90%;
+  // height: 360px;
+
   display: flex;
   align-items: center;
   justify-content: center;
   // gap: 1px;
   flex-direction: column;
-  background-color: gray;
+  background-color: $darkerGreen;
+
+  .topRow {
+    top: 0;
+    right: 0;
+    margin-top: -30px;
+    margin-right: 0px;
+    width: 16%;
+    height: 25px;
+    position: absolute;
+    background-color: $darkerGreen;
+    align-items: center;
+    justify-content: end;
+
+    .scoreCounter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      height: 100%;
+      width: 50px;
+      // background-color: rgb(133, 221, 160);
+      .number {
+        font-family: Arcade;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 22%;
+        height: 73%;
+        // background-color: red;
+        border: 2px solid rgba(25, 64, 26, 100%);
+        border-radius: 2px;
+
+        p {
+          color: rgb(25, 64, 26);
+          margin-top: 1px;
+          margin-bottom: 1px;
+          margin-left: 2px;
+          font-size: 0.6rem;
+          text-shadow: -0.5px 0.5px 1px rgba(15, 39, 16, 0.9);
+        }
+      }
+    }
+  }
 }
 
 .gridRow {
   display: flex;
-  // gap: 1px;
   padding: 0;
   line-height: 0;
 }

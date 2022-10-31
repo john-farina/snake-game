@@ -26,6 +26,42 @@ function App() {
   const gameStart = useRef(false);
   let snakeUpdateTime = 120;
 
+  //take a number make it 000 and return the number requested ex: getStyledNum(8, 1) === 0
+  //            getStyledNum(8, 3) === 8 (because its returning 008 technically)
+  //
+  function getStyledNum(number, whichPlace) {
+    let numStr = (number - 2).toString();
+    let array = [];
+
+    if (numStr.length === 1) {
+      array.push(0);
+      array.push(0);
+    }
+
+    if (numStr.length === 2) {
+      array.push(0);
+    }
+
+    for (let i = 0; i < numStr.length; i++) {
+      array.push(Number(numStr[i]));
+    }
+
+    // console.log(array);
+
+    if (whichPlace === 1) {
+      return array[0];
+    }
+
+    if (whichPlace === 2) {
+      return array[1];
+    }
+
+    if (whichPlace === 3) {
+      return array[2];
+    }
+  }
+  console.log(getStyledNum(16, 1));
+
   function eatCube() {
     setSnake((s) => growSnakeByOne(s, snakeDirection.current));
     foodCoords.current = randomFoodCoords(snake);
@@ -42,16 +78,6 @@ function App() {
     }
     // console.timeEnd("foodToHeadCollision");
   }
-
-  const foodCollision = useMemo(
-    () => foodToHeadCollision(snake, foodCoords.current),
-    [snake]
-  );
-
-  const snakeToSnakeCollis = useMemo(
-    () => snakeToSnakeCollision(snake, gameStart),
-    [snake]
-  );
 
   function snakeToWallCollision(snake, gridSize, gameStart) {
     let size = gridSize - 1;
@@ -100,16 +126,41 @@ function App() {
     }
   }
 
-  const snakeToWallCollis = useMemo(() => {
-    snakeToWallCollision(snake, grid.length, gameStart);
-    console.log("now");
+  const foodCollision = useMemo(
+    () => foodToHeadCollision(snake, foodCoords.current),
+    [snake]
+  );
+
+  const { scoreOne, scoreTwo, scoreThree } = useMemo(() => {
+    const one = getStyledNum(snake.length, 1);
+    const two = getStyledNum(snake.length, 2);
+    const three = getStyledNum(snake.length, 3);
+
+    return { scoreOne: one, scoreTwo: two, scoreThree: three };
+  }, [snake]);
+
+  const { snakeToSnakeCollis, snakeToWallCollis } = useMemo(() => {
+    // {destructuring, stuff, wow}
+    // const { a, b } = { a: "hello", b: "hello from b" };
+
+    const snakeToSnakeCollided = snakeToSnakeCollision(snake, gameStart);
+
+    const snakeToWallCollided = snakeToWallCollision(
+      snake,
+      grid.length,
+      gameStart
+    );
+
+    return {
+      snakeToSnakeCollis: snakeToSnakeCollided,
+      snakeToWallCollis: snakeToWallCollided,
+    };
   }, [snake]);
 
   useEffect(() => {
     const snakeInterval = setInterval(() => {
       if (gameStart.current) {
         setSnake((s) =>
-          // console.log("snakeloop", snakeDirection)
           moveSnakeCoords(s, snakeDirection.current, grid.length)
         );
       }
@@ -119,7 +170,6 @@ function App() {
   }, []);
 
   function allClicks(direction) {
-    console.log("allClicks", direction, new Date());
     if (direction === "left") {
       if (snakeDirection.current !== "right") {
         snakeDirection.current = "left";
@@ -146,8 +196,7 @@ function App() {
   }
 
   const handleKeyDown = (event, direction) => {
-    console.log("pressed ", event);
-    console.log("keyDown", new Date());
+    // console.log("pressed ", event);
 
     if (event.key === "f") {
       eatCube();
@@ -180,80 +229,95 @@ function App() {
 
   return (
     <>
-      <h1>s n a k e</h1>
-      <h2>{snakeDirection.current}</h2>
-      <div className="gridContainer" onKeyDown={handleKeyDown} tabIndex="0">
-        {grid.map((row) => {
-          return (
-            <div className="gridRow">
-              {row.map((gridItem) => {
-                if (gridItem === null) {
-                  return (
-                    <div className="box emptyGrid">
-                      <p>GRID</p>
-                    </div>
-                  );
-                } else if (gridItem === "FOOD") {
-                  return <div className="box food"></div>;
-                } else if (gridItem === "HEAD") {
-                  return (
-                    <div className={`box snake ${snakeDirection.current}`}>
-                      <div className="snakeHead">
-                        <div className="eye"></div>
-                        <div className="eye"></div>
-                      </div>
-                    </div>
-                  );
-                } else if (gridItem === "BODY") {
-                  return <div className="box snake snakeBody"></div>;
-                } else if (gridItem === "TAIL") {
-                  return <div className="box snake snakeTail"></div>;
-                }
-              })}
+      {/* <h1>s n a k e</h1>
+      <h2>{snakeDirection.current}</h2> */}
+      <main className="device" onKeyDown={handleKeyDown} tabIndex="0">
+        <div className="gridContainer">
+          <div className="topRow">
+            <div className="scoreCounter">
+              <div className="number">
+                <p>{scoreOne}</p>
+              </div>
+              <div className="number">
+                <p>{scoreTwo}</p>
+              </div>
+              <div className="number">
+                <p>{scoreThree}</p>
+              </div>
             </div>
-          );
-        })}
-      </div>
-
-      <div className="buttonContainer">
-        <div className="top">
-          <button
-            onTouchStart={() => handleKeyDown("MoveUp")}
-            onClick={() => handleKeyDown("MoveUp")}
-          >
-            up
-          </button>
+          </div>
+          {grid.map((row) => {
+            return (
+              <div className="gridRow">
+                {row.map((gridItem) => {
+                  if (gridItem === null) {
+                    return (
+                      <div className="box emptyGrid">
+                        <p>GRID</p>
+                      </div>
+                    );
+                  } else if (gridItem === "FOOD") {
+                    return <div className="box food"></div>;
+                  } else if (gridItem === "HEAD") {
+                    return (
+                      <div className={`box snake ${snakeDirection.current}`}>
+                        <div className="snakeHead">
+                          <div className="eye"></div>
+                          <div className="eye"></div>
+                        </div>
+                      </div>
+                    );
+                  } else if (gridItem === "BODY") {
+                    return <div className="box snake snakeBody"></div>;
+                  } else if (gridItem === "TAIL") {
+                    return <div className="box snake snakeTail"></div>;
+                  }
+                })}
+              </div>
+            );
+          })}
         </div>
 
-        <div className="middle">
-          <button
-            onTouchStart={() => handleKeyDown("MoveLeft")}
-            onClick={() => handleKeyDown("MoveLeft")}
-          >
-            left
-          </button>
+        <div className="buttonContainer">
+          <div className="top">
+            <button
+              onTouchStart={() => handleKeyDown("MoveUp")}
+              onClick={() => handleKeyDown("MoveUp")}
+            >
+              up
+            </button>
+          </div>
 
-          <button
-            onTouchStart={() => handleKeyDown("MoveRight")}
-            onClick={() => handleKeyDown("MoveRight")}
-          >
-            right
-          </button>
+          <div className="middle">
+            <button
+              onTouchStart={() => handleKeyDown("MoveLeft")}
+              onClick={() => handleKeyDown("MoveLeft")}
+            >
+              left
+            </button>
+
+            <button
+              onTouchStart={() => handleKeyDown("MoveRight")}
+              onClick={() => handleKeyDown("MoveRight")}
+            >
+              right
+            </button>
+          </div>
+
+          <div className="bottom">
+            <button
+              onTouchStart={() => handleKeyDown("MoveDown")}
+              onClick={() => handleKeyDown("MoveDown")}
+            >
+              down
+            </button>
+          </div>
         </div>
 
-        <div className="bottom">
-          <button
-            onTouchStart={() => handleKeyDown("MoveDown")}
-            onClick={() => handleKeyDown("MoveDown")}
-          >
-            down
-          </button>
-        </div>
-      </div>
+        <button onClick={() => (gameStart.current = true)}>start</button>
 
-      <button onClick={() => (gameStart.current = true)}>start</button>
-
-      <button onClick={() => (gameStart.current = false)}>stop</button>
+        <button onClick={() => (gameStart.current = false)}>stop</button>
+      </main>
     </>
   );
 }
