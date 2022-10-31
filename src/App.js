@@ -8,6 +8,7 @@ import growSnakeByOne from "./functions/growSnakeByOne";
 import snakeToSnakeCollision from "./functions/snakeToSnakeCollision";
 import getStyledNum from "./functions/getStyledNum";
 import scoreBasedQuotes from "./functions/scoreBasedQuotes";
+import ArrowSvg from "./arrowsvg.svg";
 
 // HEAD === Snake Head
 // BODY === Snake Body
@@ -282,35 +283,39 @@ function App() {
         <div className="buttonContainer">
           <div className="top">
             <button
+              className="upButton"
               onTouchStart={() => handleKeyDown("MoveUp")}
               onClick={() => handleKeyDown("MoveUp")}
             >
-              up
+              <img className="upIcon arrow" src={ArrowSvg} alt="" />
             </button>
           </div>
 
           <div className="middle">
             <button
+              className="leftButton"
               onTouchStart={() => handleKeyDown("MoveLeft")}
               onClick={() => handleKeyDown("MoveLeft")}
             >
-              left
+              <img className="leftIcon arrow" src={ArrowSvg} alt="" />
             </button>
 
             <button
+              className="rightButton"
               onTouchStart={() => handleKeyDown("MoveRight")}
               onClick={() => handleKeyDown("MoveRight")}
             >
-              right
+              <img className="rightIcon arrow" src={ArrowSvg} alt="" />
             </button>
           </div>
 
           <div className="bottom">
             <button
+              className="downButton"
               onTouchStart={() => handleKeyDown("MoveDown")}
               onClick={() => handleKeyDown("MoveDown")}
             >
-              down
+              <img className="downIcon arrow" src={ArrowSvg} alt="" />
             </button>
           </div>
         </div>

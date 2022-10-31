@@ -1,5 +1,5 @@
 export default function snakeToSnakeCollision(snake, gameStart, setEndScreen) {
-  console.time("snakeTosnake");
+  // console.time("snakeTosnake");
   let headCoords = snake[0];
 
   for (let i = 1; i < snake.length; i++) {
@@ -9,5 +9,5 @@ export default function snakeToSnakeCollision(snake, gameStart, setEndScreen) {
     }
   }
 
-  console.timeEnd("snakeTosnake");
+  // console.timeEnd("snakeTosnake");
 }
