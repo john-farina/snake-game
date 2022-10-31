@@ -9,7 +9,7 @@ import snakeToSnakeCollision from "./functions/snakeToSnakeCollision";
 import getStyledNum from "./functions/getStyledNum";
 import scoreBasedQuotes from "./functions/scoreBasedQuotes";
 import ArrowSvg from "./arrowsvg.svg";
-
+import LeaderBoardIcon from "./leaderboardIcon.svg";
 // HEAD === Snake Head
 // BODY === Snake Body
 // TAIL === Snake Tail
@@ -282,6 +282,12 @@ function App() {
               </div>
             );
           })}
+        </div>
+
+        <div className="middleRow">
+          <button className="leaderBoardBtn">
+            <img className="leadImage" src={LeaderBoardIcon} alt="" />
+          </button>
         </div>
 
         <div className="buttonContainer">
