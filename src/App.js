@@ -40,6 +40,7 @@ function App() {
     foodCoords.current = randomFoodCoords(snake);
     snakeDirection.current = "left";
     gameStart.current = false;
+    setEndScreen("");
   }
 
   function eatCube() {
@@ -320,17 +321,19 @@ function App() {
           </div>
         </div>
 
-        <button onClick={() => (gameStart.current = true)}>start</button>
+        <div className="bottomButton">
+          <button onClick={() => (gameStart.current = true)}>start</button>
 
-        <button onClick={() => (gameStart.current = false)}>stop</button>
+          <button onClick={() => (gameStart.current = false)}>stop</button>
 
-        <button
-          onClick={() => {
-            resetGame();
-          }}
-        >
-          reset
-        </button>
+          <button
+            onClick={() => {
+              resetGame();
+            }}
+          >
+            reset
+          </button>
+        </div>
       </main>
     </>
   );
