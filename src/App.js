@@ -285,16 +285,6 @@ function App() {
         </div>
 
         <div className="buttonContainer">
-          <div className="top">
-            <button
-              className="upButton"
-              onTouchStart={() => handleKeyDown("MoveUp")}
-              onClick={() => handleKeyDown("MoveUp")}
-            >
-              <img className="upIcon arrow" src={ArrowSvg} alt="" />
-            </button>
-          </div>
-
           <div className="middle">
             <button
               className="leftButton"
@@ -303,23 +293,33 @@ function App() {
             >
               <img className="leftIcon arrow" src={ArrowSvg} alt="" />
             </button>
-
-            <button
-              className="rightButton"
-              onTouchStart={() => handleKeyDown("MoveRight")}
-              onClick={() => handleKeyDown("MoveRight")}
-            >
-              <img className="rightIcon arrow" src={ArrowSvg} alt="" />
-            </button>
           </div>
 
-          <div className="bottom">
+          <div className="top">
+            <button
+              className="upButton"
+              onTouchStart={() => handleKeyDown("MoveUp")}
+              onClick={() => handleKeyDown("MoveUp")}
+            >
+              <img className="upIcon arrow" src={ArrowSvg} alt="" />
+            </button>
+
             <button
               className="downButton"
               onTouchStart={() => handleKeyDown("MoveDown")}
               onClick={() => handleKeyDown("MoveDown")}
             >
               <img className="downIcon arrow" src={ArrowSvg} alt="" />
+            </button>
+          </div>
+
+          <div className="bottom">
+            <button
+              className="rightButton"
+              onTouchStart={() => handleKeyDown("MoveRight")}
+              onClick={() => handleKeyDown("MoveRight")}
+            >
+              <img className="rightIcon arrow" src={ArrowSvg} alt="" />
             </button>
           </div>
         </div>
