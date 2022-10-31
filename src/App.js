@@ -6,6 +6,8 @@ import moveSnakeCoords from "./functions/moveSnakeCoords";
 import randomFoodCoords from "./functions/randomFoodCoords";
 import growSnakeByOne from "./functions/growSnakeByOne";
 import snakeToSnakeCollision from "./functions/snakeToSnakeCollision";
+import getStyledNum from "./functions/getStyledNum";
+import scoreBasedQuotes from "./functions/scoreBasedQuotes";
 
 // HEAD === Snake Head
 // BODY === Snake Body
@@ -14,8 +16,8 @@ import snakeToSnakeCollision from "./functions/snakeToSnakeCollision";
 
 function App() {
   let [snake, setSnake] = useState([
-    [8, 12],
-    [8, 13],
+    [12, 12],
+    [12, 13],
   ]);
   const foodCoords = useRef(randomFoodCoords(snake));
   const grid = useMemo(
@@ -24,43 +26,20 @@ function App() {
   );
   const snakeDirection = useRef("left");
   const gameStart = useRef(false);
+  const firstStart = useRef(true);
+  const [endScreenClass, setEndScreen] = useState("");
+  const startScreenClass = useRef("");
   let snakeUpdateTime = 120;
 
-  //take a number make it 000 and return the number requested ex: getStyledNum(8, 1) === 0
-  //            getStyledNum(8, 3) === 8 (because its returning 008 technically)
-  //
-  function getStyledNum(number, whichPlace) {
-    let numStr = (number - 2).toString();
-    let array = [];
-
-    if (numStr.length === 1) {
-      array.push(0);
-      array.push(0);
-    }
-
-    if (numStr.length === 2) {
-      array.push(0);
-    }
-
-    for (let i = 0; i < numStr.length; i++) {
-      array.push(Number(numStr[i]));
-    }
-
-    // console.log(array);
-
-    if (whichPlace === 1) {
-      return array[0];
-    }
-
-    if (whichPlace === 2) {
-      return array[1];
-    }
-
-    if (whichPlace === 3) {
-      return array[2];
-    }
+  function resetGame() {
+    setSnake([
+      [12, 12],
+      [12, 13],
+    ]);
+    foodCoords.current = randomFoodCoords(snake);
+    snakeDirection.current = "left";
+    gameStart.current = false;
   }
-  console.log(getStyledNum(16, 1));
 
   function eatCube() {
     setSnake((s) => growSnakeByOne(s, snakeDirection.current));
@@ -79,7 +58,7 @@ function App() {
     // console.timeEnd("foodToHeadCollision");
   }
 
-  function snakeToWallCollision(snake, gridSize, gameStart) {
+  function snakeToWallCollision(snake, gridSize, gameStart, setEndScreen) {
     let size = gridSize - 1;
     let headRow = snake[0][0];
     let headColumn = snake[0][1];
@@ -89,7 +68,8 @@ function App() {
       //time out so u can quickly move and avoid dying
       setTimeout(() => {
         if (snakeDirection.current === "left") {
-          alert("you stink loser");
+          // alert("you stink loser");
+          setEndScreen("showEnd");
           gameStart.current = false;
         }
       }, snakeUpdateTime - 50);
@@ -99,7 +79,8 @@ function App() {
     if (headColumn === size) {
       setTimeout(() => {
         if (snakeDirection.current === "right") {
-          alert("you stink loser");
+          // alert("you stink loser");
+          setEndScreen("showEnd");
           gameStart.current = false;
         }
       }, snakeUpdateTime - 50);
@@ -109,7 +90,9 @@ function App() {
     if (headRow === 0) {
       setTimeout(() => {
         if (snakeDirection.current === "up") {
-          alert("you stink loser");
+          // alert("you stink loser");
+
+          setEndScreen("showEnd");
           gameStart.current = false;
         }
       }, snakeUpdateTime - 50);
@@ -119,7 +102,8 @@ function App() {
     if (headRow === size) {
       setTimeout(() => {
         if (snakeDirection.current === "down") {
-          alert("you stink loser");
+          // alert("you stink loser");
+          setEndScreen("showEnd");
           gameStart.current = false;
         }
       }, snakeUpdateTime - 50);
@@ -143,12 +127,17 @@ function App() {
     // {destructuring, stuff, wow}
     // const { a, b } = { a: "hello", b: "hello from b" };
 
-    const snakeToSnakeCollided = snakeToSnakeCollision(snake, gameStart);
+    const snakeToSnakeCollided = snakeToSnakeCollision(
+      snake,
+      gameStart,
+      setEndScreen
+    );
 
     const snakeToWallCollided = snakeToWallCollision(
       snake,
       grid.length,
-      gameStart
+      gameStart,
+      setEndScreen
     );
 
     return {
@@ -227,12 +216,24 @@ function App() {
     }
   };
 
+  const endStartEvent = useMemo(() => {
+    console.log("start now", gameStart.current);
+  }, [gameStart]);
+
   return (
     <>
       {/* <h1>s n a k e</h1>
       <h2>{snakeDirection.current}</h2> */}
       <main className="device" onKeyDown={handleKeyDown} tabIndex="0">
         <div className="gridContainer">
+          <div className={`popUpScreen endScreen ${endScreenClass}`}>
+            <p className="words">{scoreBasedQuotes(snake.length - 2)}</p>
+            <p className="score">
+              score: {scoreOne}
+              {scoreTwo}
+              {scoreThree}
+            </p>
+          </div>
           <div className="topRow">
             <div className="scoreCounter">
               <div className="number">
@@ -317,6 +318,14 @@ function App() {
         <button onClick={() => (gameStart.current = true)}>start</button>
 
         <button onClick={() => (gameStart.current = false)}>stop</button>
+
+        <button
+          onClick={() => {
+            resetGame();
+          }}
+        >
+          reset
+        </button>
       </main>
     </>
   );
