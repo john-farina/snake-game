@@ -224,124 +224,128 @@ function App() {
 
   return (
     <>
-      <main className="device" onKeyDown={handleKeyDown} tabIndex="0">
-        <div className="topLight"></div>
-        <div className="gridContainer">
-          <div className={`popUpScreen endScreen ${endScreenClass}`}>
-            <p className="words">{scoreBasedQuotes(snake.length - 2)}</p>
-            <p className="score">
-              score: {scoreOne}
-              {scoreTwo}
-              {scoreThree}
-            </p>
+      <div className="pageContainer">
+        <main className="device" onKeyDown={handleKeyDown} tabIndex="0">
+          <div className="topLight"></div>
+          <div className="gridContainer">
+            <div className={`popUpScreen endScreen ${endScreenClass}`}>
+              <p className="words">{scoreBasedQuotes(snake.length - 2)}</p>
+              <p className="score">
+                score: {scoreOne}
+                {scoreTwo}
+                {scoreThree}
+              </p>
+            </div>
+
+            <div className="topRow">
+              <div className="scoreCounter">
+                <div className="number">
+                  <p>{scoreOne}</p>
+                </div>
+                <div className="number">
+                  <p>{scoreTwo}</p>
+                </div>
+                <div className="number">
+                  <p>{scoreThree}</p>
+                </div>
+              </div>
+            </div>
+
+            {grid.map((row) => {
+              return (
+                <div className="gridRow">
+                  {row.map((gridItem) => {
+                    if (gridItem === null) {
+                      return (
+                        <div className="box emptyGrid">
+                          <p>GRID</p>
+                        </div>
+                      );
+                    } else if (gridItem === "FOOD") {
+                      return <div className="box food"></div>;
+                    } else if (gridItem === "HEAD") {
+                      return (
+                        <div className={`box snake ${snakeDirection.current}`}>
+                          <div className="snakeHead">
+                            <div className="eye"></div>
+                            <div className="eye"></div>
+                          </div>
+                        </div>
+                      );
+                    } else if (gridItem === "BODY") {
+                      return <div className="box snake snakeBody"></div>;
+                    } else if (gridItem === "TAIL") {
+                      return <div className="box snake snakeTail"></div>;
+                    }
+                  })}
+                </div>
+              );
+            })}
           </div>
 
-          <div className="topRow">
-            <div className="scoreCounter">
-              <div className="number">
-                <p>{scoreOne}</p>
-              </div>
-              <div className="number">
-                <p>{scoreTwo}</p>
-              </div>
-              <div className="number">
-                <p>{scoreThree}</p>
-              </div>
+          <div className="buttonContainer">
+            <div className="middle">
+              <button
+                className="leftButton"
+                onTouchStart={() => handleKeyDown("MoveLeft")}
+                onClick={() => handleKeyDown("MoveLeft")}
+              >
+                <img className="leftIcon arrow" src={ArrowSvg} alt="" />
+              </button>
+            </div>
+
+            <div className="top">
+              <button
+                className="upButton"
+                onTouchStart={() => handleKeyDown("MoveUp")}
+                onClick={() => handleKeyDown("MoveUp")}
+              >
+                <img className="upIcon arrow" src={ArrowSvg} alt="" />
+              </button>
+
+              <button
+                className="downButton"
+                onTouchStart={() => handleKeyDown("MoveDown")}
+                onClick={() => handleKeyDown("MoveDown")}
+              >
+                <img className="downIcon arrow" src={ArrowSvg} alt="" />
+              </button>
+            </div>
+
+            <div className="bottom">
+              <button
+                className="rightButton"
+                onTouchStart={() => handleKeyDown("MoveRight")}
+                onClick={() => handleKeyDown("MoveRight")}
+              >
+                <img className="rightIcon arrow" src={ArrowSvg} alt="" />
+              </button>
             </div>
           </div>
 
-          {grid.map((row) => {
-            return (
-              <div className="gridRow">
-                {row.map((gridItem) => {
-                  if (gridItem === null) {
-                    return (
-                      <div className="box emptyGrid">
-                        <p>GRID</p>
-                      </div>
-                    );
-                  } else if (gridItem === "FOOD") {
-                    return <div className="box food"></div>;
-                  } else if (gridItem === "HEAD") {
-                    return (
-                      <div className={`box snake ${snakeDirection.current}`}>
-                        <div className="snakeHead">
-                          <div className="eye"></div>
-                          <div className="eye"></div>
-                        </div>
-                      </div>
-                    );
-                  } else if (gridItem === "BODY") {
-                    return <div className="box snake snakeBody"></div>;
-                  } else if (gridItem === "TAIL") {
-                    return <div className="box snake snakeTail"></div>;
-                  }
-                })}
-              </div>
-            );
-          })}
+          <div className="bottomButton"></div>
+        </main>
+
+        <div className="extraContainer">
+          <div className="middleRow">
+            <button className="leaderBoardBtn">
+              <img className="leadImage" src={LeaderBoardIcon} alt="" />
+            </button>
+          </div>
+
+          <button onClick={() => (gameStart.current = true)}>start</button>
+
+          <button onClick={() => (gameStart.current = false)}>stop</button>
+
+          <button
+            onClick={() => {
+              resetGame();
+            }}
+          >
+            reset
+          </button>
         </div>
-
-        <div className="buttonContainer">
-          <div className="middle">
-            <button
-              className="leftButton"
-              onTouchStart={() => handleKeyDown("MoveLeft")}
-              onClick={() => handleKeyDown("MoveLeft")}
-            >
-              <img className="leftIcon arrow" src={ArrowSvg} alt="" />
-            </button>
-          </div>
-
-          <div className="top">
-            <button
-              className="upButton"
-              onTouchStart={() => handleKeyDown("MoveUp")}
-              onClick={() => handleKeyDown("MoveUp")}
-            >
-              <img className="upIcon arrow" src={ArrowSvg} alt="" />
-            </button>
-
-            <button
-              className="downButton"
-              onTouchStart={() => handleKeyDown("MoveDown")}
-              onClick={() => handleKeyDown("MoveDown")}
-            >
-              <img className="downIcon arrow" src={ArrowSvg} alt="" />
-            </button>
-          </div>
-
-          <div className="bottom">
-            <button
-              className="rightButton"
-              onTouchStart={() => handleKeyDown("MoveRight")}
-              onClick={() => handleKeyDown("MoveRight")}
-            >
-              <img className="rightIcon arrow" src={ArrowSvg} alt="" />
-            </button>
-          </div>
-        </div>
-
-        <div className="bottomButton"></div>
-      </main>
-
-      <div className="middleRow">
-        <button className="leaderBoardBtn">
-          <img className="leadImage" src={LeaderBoardIcon} alt="" />
-        </button>
       </div>
-
-      <button onClick={() => (gameStart.current = true)}>start</button>
-
-      <button onClick={() => (gameStart.current = false)}>stop</button>
-
-      <button
-        onClick={() => {
-          resetGame();
-        }}
-      >
-        reset
-      </button>
     </>
   );
 }
