@@ -4,7 +4,7 @@
 }
 
 $deviceWidth: 370px;
-$deviceHeight: 570px;
+$deviceHeight: auto;
 $greenScreen: rgb(104, 146, 30);
 $darkerGreen: rgb(95, 126, 75);
 
@@ -39,10 +39,8 @@ body {
   width: $deviceWidth;
   height: $deviceHeight;
   border-radius: 3px;
-  // border-left: 0;
-  // border-top: 0;
-  // border-right: 25px solid rgb(185, 184, 177);
-  // border-bottom: 25px solid rgb(170, 169, 165) 8px;
+  gap: 5px;
+
   .topLight {
     position: absolute;
     left: 0;
@@ -54,6 +52,109 @@ body {
     margin-top: 10px;
     background-color: rgb(164, 116, 116);
     animation: blink 0.9s infinite ease-in-out;
+  }
+
+  .middleBtns {
+    width: 100%;
+    height: 35px;
+    background-color: red;
+  }
+
+  .buttonContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 200px;
+    // background-color: rgb(89, 89, 89);
+    // margin-left: 50px;
+
+    .top,
+    .middle,
+    .bottom {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 180px;
+      // background-color: red;
+
+      button {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 95%;
+        height: 100%;
+        border-radius: 10px;
+        border: solid 4px black;
+
+        &:hover {
+          filter: brightness(80%);
+        }
+        &:active {
+          filter: brightness(90%);
+        }
+      }
+      .upButton {
+        background-color: rgb(219, 105, 105);
+        border-color: #964444;
+        height: 49%;
+      }
+      .downButton {
+        background-color: rgb(93, 110, 237);
+        border-color: #354092;
+        height: 49%;
+      }
+      .leftButton {
+        background-color: rgb(218, 221, 107);
+        border-color: #9fa24e;
+      }
+      .rightButton {
+        background-color: rgb(126, 205, 119);
+        border-color: #52864e;
+      }
+      .arrow {
+        width: 30px;
+      }
+      .upIcon {
+        margin-bottom: 4px;
+        filter: invert(33%) sepia(12%) saturate(2656%) hue-rotate(314deg)
+          brightness(94%) contrast(86%);
+      }
+      .leftIcon {
+        transform: rotate(-90deg);
+        margin-right: 5px;
+        filter: invert(51%) sepia(88%) saturate(241%) hue-rotate(23deg)
+          brightness(103%) contrast(88%);
+      }
+      .downIcon {
+        transform: rotate(180deg);
+        margin-top: 5px;
+        filter: invert(28%) sepia(29%) saturate(1308%) hue-rotate(193deg)
+          brightness(91%) contrast(99%);
+      }
+      .rightIcon {
+        transform: rotate(90deg);
+        margin-left: 4px;
+        filter: invert(46%) sepia(20%) saturate(879%) hue-rotate(68deg)
+          brightness(96%) contrast(90%);
+      }
+    }
+    .top {
+      // background-color: green;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .middle {
+      // background-color: purple;
+      // gap: 80px;
+    }
+    .bottom {
+      // background-color: yellow;
+    }
   }
 }
 
@@ -270,103 +371,5 @@ body {
     &:active {
       filter: brightness(90%);
     }
-  }
-}
-
-.buttonContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 200px;
-
-  // background-color: rgb(89, 89, 89);
-  // margin-left: 50px;
-  margin-top: 20px;
-  .top,
-  .middle,
-  .bottom {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 180px;
-    // background-color: red;
-
-    button {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 95%;
-      height: 100%;
-      border-radius: 10px;
-      border: solid 4px black;
-
-      &:hover {
-        filter: brightness(80%);
-      }
-      &:active {
-        filter: brightness(90%);
-      }
-    }
-    .upButton {
-      background-color: rgb(219, 105, 105);
-      border-color: #964444;
-      height: 49%;
-    }
-    .downButton {
-      background-color: rgb(93, 110, 237);
-      border-color: #354092;
-      height: 49%;
-    }
-    .leftButton {
-      background-color: rgb(218, 221, 107);
-      border-color: #9fa24e;
-    }
-    .rightButton {
-      background-color: rgb(126, 205, 119);
-      border-color: #52864e;
-    }
-    .arrow {
-      width: 30px;
-    }
-    .upIcon {
-      margin-bottom: 4px;
-      filter: invert(33%) sepia(12%) saturate(2656%) hue-rotate(314deg)
-        brightness(94%) contrast(86%);
-    }
-    .leftIcon {
-      transform: rotate(-90deg);
-      margin-right: 5px;
-      filter: invert(51%) sepia(88%) saturate(241%) hue-rotate(23deg)
-        brightness(103%) contrast(88%);
-    }
-    .downIcon {
-      transform: rotate(180deg);
-      margin-top: 5px;
-      filter: invert(28%) sepia(29%) saturate(1308%) hue-rotate(193deg)
-        brightness(91%) contrast(99%);
-    }
-    .rightIcon {
-      transform: rotate(90deg);
-      margin-left: 4px;
-      filter: invert(46%) sepia(20%) saturate(879%) hue-rotate(68deg)
-        brightness(96%) contrast(90%);
-    }
-  }
-  .top {
-    // background-color: green;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .middle {
-    // background-color: purple;
-    // gap: 80px;
-  }
-  .bottom {
-    // background-color: yellow;
   }
 }

@@ -283,6 +283,18 @@ function App() {
             })}
           </div>
 
+          <div className="middleBtns">
+            <button onClick={() => (gameStart.current = true)}>start</button>
+
+            <button
+              onClick={() => {
+                resetGame();
+              }}
+            >
+              reset
+            </button>
+          </div>
+
           <div className="buttonContainer">
             <div className="middle">
               <button
@@ -322,11 +334,7 @@ function App() {
               </button>
             </div>
           </div>
-
-          <div className="bottomButton"></div>
         </main>
-
-        <button onClick={() => (gameStart.current = true)}>start</button>
 
         <div className="extraContainer">
           <div className="middleRow">
@@ -338,14 +346,6 @@ function App() {
           <button onClick={() => (gameStart.current = true)}>start</button>
 
           <button onClick={() => (gameStart.current = false)}>stop</button>
-
-          <button
-            onClick={() => {
-              resetGame();
-            }}
-          >
-            reset
-          </button>
         </div>
       </div>
     </>
