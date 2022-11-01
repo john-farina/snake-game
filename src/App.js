@@ -326,6 +326,8 @@ function App() {
           <div className="bottomButton"></div>
         </main>
 
+        <button onClick={() => (gameStart.current = true)}>start</button>
+
         <div className="extraContainer">
           <div className="middleRow">
             <button className="leaderBoardBtn">
