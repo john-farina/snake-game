@@ -24,7 +24,7 @@ body {
   display: flex;
 }
 .extraContainer {
-  display: flex;
+  display: none;
   flex-direction: column;
 }
 
@@ -154,18 +154,6 @@ body {
       animation: endMove 1.5s infinite steps(5);
     }
 
-    @keyframes endMove {
-      0% {
-        transform: scale(100%);
-      }
-      50% {
-        transform: scale(120%);
-      }
-      100% {
-        transform: scale(100%);
-      }
-    }
-
     .score {
       margin-left: 10px;
       margin-top: 20px;
@@ -175,6 +163,18 @@ body {
   .showEnd,
   .showStart {
     display: flex;
+  }
+}
+
+@keyframes endMove {
+  0% {
+    transform: scale(100%);
+  }
+  50% {
+    transform: scale(120%);
+  }
+  100% {
+    transform: scale(100%);
   }
 }
 
