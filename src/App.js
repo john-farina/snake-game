@@ -14,6 +14,7 @@ import LeaderBoardIcon from "./leaderboardIcon.svg";
 // BODY === Snake Body
 // TAIL === Snake Tail
 // 15x15 grid always (idk why thats what i chose) (test)
+// NICE I GOT IT TO WORK ON MY NEW COMP (good to know)
 
 function App() {
   let [snake, setSnake] = useState([
