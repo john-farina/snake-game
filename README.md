@@ -1,12 +1,12 @@
 - [x] move snake 1
 - [x] turn snake dif directions
 - [x] add snake length when eat food
-- [ ] detect when snake hits food
-- [ ] detect when snake hits the wall
-- [ ] detect when snake hits itself
-- [ ] spawn random food
-- [ ] gameloop to run functions
-- [ ] arrow key detection movement
+- [x] detect when snake hits food
+- [x] detect when snake hits the wall
+- [x] detect when snake hits itself
+- [x] spawn random food
+- [x] gameloop to run functions
+- [x] arrow key detection movement
 
 head, tail and body snake.
 
