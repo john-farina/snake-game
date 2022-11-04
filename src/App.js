@@ -11,6 +11,7 @@ import scoreBasedQuotes from "./functions/scoreBasedQuotes";
 import ArrowSvg from "./arrowsvg.svg";
 import LeaderBoardIcon from "./leaderboardIcon.svg";
 // HEAD === Snake Head
+
 // BODY === Snake Body
 // TAIL === Snake Tail
 // 15x15 grid always (idk why thats what i chose) (test)
