@@ -1,6 +1,5 @@
 import "./App.scss";
 import "normalize.css";
-import ReactTouchEvents from "react-touch-events";
 import { useEffect, useMemo, useRef, useState } from "react";
 import drawGrid from "./functions/drawGrid";
 import moveSnakeCoords from "./functions/moveSnakeCoords";
@@ -405,45 +404,41 @@ function App() {
 
           <div className="buttonContainer">
             <div className="middle">
-              <ReactTouchEvents onTap={() => handleKeyDown("MoveLeft")}>
-                <button
-                  className="leftButton"
-                  onClick={() => handleKeyDown("MoveLeft")}
-                >
-                  <img className="leftIcon arrow" src={ArrowSvg} alt="" />
-                </button>
-              </ReactTouchEvents>
+              <button
+                className="leftButton"
+                onTouchStart={() => handleKeyDown("MoveLeft")}
+                onClick={() => handleKeyDown("MoveLeft")}
+              >
+                <img className="leftIcon arrow" src={ArrowSvg} alt="" />
+              </button>
             </div>
 
             <div className="top">
-              <ReactTouchEvents onTap={() => handleKeyDown("MoveUp")}>
-                <button
-                  className="upButton"
-                  onClick={() => handleKeyDown("MoveUp")}
-                >
-                  <img className="upIcon arrow" src={ArrowSvg} alt="" />
-                </button>
-              </ReactTouchEvents>
+              <button
+                className="upButton"
+                onTouchStart={() => handleKeyDown("MoveUp")}
+                onClick={() => handleKeyDown("MoveUp")}
+              >
+                <img className="upIcon arrow" src={ArrowSvg} alt="" />
+              </button>
 
-              <ReactTouchEvents onTap={() => handleKeyDown("MoveDown")}>
-                <button
-                  className="downButton"
-                  onClick={() => handleKeyDown("MoveDown")}
-                >
-                  <img className="downIcon arrow" src={ArrowSvg} alt="" />
-                </button>
-              </ReactTouchEvents>
+              <button
+                className="downButton"
+                onTouchStart={() => handleKeyDown("MoveDown")}
+                onClick={() => handleKeyDown("MoveDown")}
+              >
+                <img className="downIcon arrow" src={ArrowSvg} alt="" />
+              </button>
             </div>
 
             <div className="bottom">
-              <ReactTouchEvents onTap={() => handleKeyDown("MoveRight")}>
-                <button
-                  className="rightButton"
-                  onClick={() => handleKeyDown("MoveRight")}
-                >
-                  <img className="rightIcon arrow" src={ArrowSvg} alt="" />
-                </button>
-              </ReactTouchEvents>
+              <button
+                className="rightButton"
+                onTouchStart={() => handleKeyDown("MoveRight")}
+                onClick={() => handleKeyDown("MoveRight")}
+              >
+                <img className="rightIcon arrow" src={ArrowSvg} alt="" />
+              </button>
             </div>
           </div>
         </main>
