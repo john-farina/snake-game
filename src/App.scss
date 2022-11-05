@@ -40,7 +40,11 @@ body {
   width: $deviceWidth;
   height: $deviceHeight;
   border-radius: 3px;
-  gap: 5px;
+  gap: 10px;
+
+  &:focus {
+    outline-width: 0;
+  }
 
   .topLight {
     position: absolute;
@@ -58,7 +62,22 @@ body {
   .middleBtns {
     width: 100%;
     height: 35px;
-    background-color: red;
+    // background-color: red;
+    padding-left: 15px;
+    display: flex;
+    gap: 10px;
+
+    .functionButtons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.3rem;
+      height: 40px;
+      width: 3px;
+      background-color: gray;
+      border-radius: 4px;
+      border-style: groove;
+    }
   }
 
   .buttonContainer {
@@ -68,6 +87,7 @@ body {
     justify-content: center;
     width: 100%;
     height: 200px;
+    margin-top: 40px;
     // background-color: rgb(89, 89, 89);
     // margin-left: 50px;
 
@@ -200,7 +220,7 @@ body {
       gap: 1px;
       height: 100%;
       width: 50px;
-      // background-color: rgb(133, 221, 160);
+      background-color: $greenScreen;
       .number {
         font-family: Arcade;
         display: flex;
@@ -236,16 +256,15 @@ body {
     z-index: 2;
     position: absolute;
   }
-  .endScreen {
-    display: none;
+
+  .endScreen,
+  .startScreen {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    // display: none;
 
     p {
       margin: 0;
-
       text-align: center;
     }
 
@@ -253,8 +272,17 @@ body {
       display: inline-block;
       color: rgb(0, 0, 0);
       text-shadow: 0px 5px 2px rgba(0, 0, 0, 0.155);
+    }
+  }
+
+  .endScreen {
+    display: none;
+    // display: none;
+
+    .words {
       margin-left: 20px;
       font-size: 1.7rem;
+
       animation: endMove 1.5s infinite steps(5);
     }
 
@@ -263,9 +291,59 @@ body {
       margin-top: 20px;
       font-size: 1.2rem;
     }
+
+    .retryBtn {
+      cursor: pointer;
+      position: absolute;
+      bottom: 0;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      color: rgb(166, 5, 5);
+      // text-shadow: 0px 0px 10px rgb(252, 125, 125);
+      animation: glow 2s infinite steps(8);
+      transition: color 0.5s;
+    }
+    @keyframes glow {
+      0% {
+        color: black;
+        text-shadow: 0px 0px 10px rgba(252, 125, 125, 0%);
+      }
+      50% {
+        color: rgb(166, 5, 5);
+        text-shadow: 0px 0px 10px rgba(252, 125, 125, 100%);
+      }
+      90% {
+        color: rgb(0, 0, 0);
+        text-shadow: 0px 0px 10px rgba(252, 125, 125, 0%);
+      }
+      100% {
+        color: rgb(0, 0, 0);
+        text-shadow: 0px 0px 10px rgba(252, 125, 125, 0%);
+      }
+    }
+  }
+  .startScreen {
+    cursor: pointer;
+    display: none;
+    .words {
+      font-size: 1.2rem;
+      animation: endMove 3s infinite steps(9);
+    }
+  }
+  .countDown {
+    display: none;
+    .numbers {
+      font-size: 4rem;
+      animation: endMove 0.95s infinite steps(3);
+    }
+    .numWords {
+      margin-left: 40px;
+    }
   }
   .showEnd,
-  .showStart {
+  .showStart,
+  .showCountdown {
     display: flex;
   }
 }

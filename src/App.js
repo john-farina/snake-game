@@ -29,10 +29,22 @@ function App() {
   );
   const snakeDirection = useRef("left");
   const gameStart = useRef(false);
+
   const firstStart = useRef(true);
   const [endScreenClass, setEndScreen] = useState("");
   const startScreenClass = useRef("");
   let snakeUpdateTime = 120;
+  const [firstXStart, setFirstXStart] = useState(true);
+
+  // when firstXStart equals true it will show the first starting screen
+
+  // set firstXStart to true when first loaded, and set it to false when started for first time (wont pop back up unless reseted device)
+
+  // users can hit a replay button on screen when ended (not showing first start screen)
+  // start screen will have a 3 sec count down when players hit start (then setFirstXStart to false)
+
+  const [timer, setTimer] = useState(3);
+  const [countDownClass, setCountDownClass] = useState("");
 
   function resetGame() {
     setSnake([
@@ -42,7 +54,58 @@ function App() {
     foodCoords.current = randomFoodCoords(snake);
     snakeDirection.current = "left";
     gameStart.current = false;
+    setFirstXStart(true);
+    setTimer(3);
     setEndScreen("");
+    setCountDownClass("");
+  }
+
+  function countDownThreeThenStart() {
+    let newTime = timer;
+    newTime = 3;
+
+    setCountDownClass("showCountdown");
+
+    const interval = setInterval(function () {
+      console.log(newTime);
+
+      if (newTime <= 0) {
+        console.log("GO");
+        setCountDownClass("");
+        gameStart.current = true;
+        clearInterval(interval);
+      }
+
+      newTime = newTime - 1;
+
+      setTimer(newTime);
+    }, 1000);
+  }
+
+  function restartGameAfterEnd() {
+    setEndScreen("");
+    setTimer(3);
+    setSnake([
+      [12, 12],
+      [12, 13],
+    ]);
+    foodCoords.current = randomFoodCoords(snake);
+    snakeDirection.current = "left";
+    gameStart.current = false;
+    countDownThreeThenStart();
+  }
+
+  function startGame() {
+    if (firstXStart === true) {
+      //set first start to false
+      setFirstXStart(false);
+
+      //set timer for 3 sec (show animation) THEN
+      // gameStart.current = true; (start the actual game)
+      countDownThreeThenStart();
+    } else {
+      countDownThreeThenStart();
+    }
   }
 
   function eatCube() {
@@ -191,9 +254,13 @@ function App() {
   const handleKeyDown = (event, direction) => {
     // console.log("pressed ", event);
 
-    if (event.key === "f") {
-      eatCube();
-    }
+    // if (event.key === "f") {
+    //   eatCube();
+    // }
+
+    // if (event.key === "p") {
+    //   restartGameAfterEnd();
+    // }
 
     if (event.key === "ArrowUp" || event === "MoveUp") {
       allClicks("up");
@@ -211,22 +278,43 @@ function App() {
       allClicks("right");
     }
 
-    if (event.key === "Enter") {
-      if (!gameStart.current) {
-        gameStart.current = true;
-      } else {
-        gameStart.current = false;
-      }
-    }
+    // if (event.key === "Enter") {
+    //   if (!gameStart.current) {
+    //     startGame();
+    //   } else {
+    //     gameStart.current = false;
+    //     setFirstXStart(true);
+    //     setEndScreen("");
+    //   }
+    // }
   };
 
   const endStartEvent = useMemo(() => {
-    console.log("start now", gameStart.current);
-  }, [gameStart]);
+    console.log("start now", firstXStart);
+    if (firstXStart) {
+      startScreenClass.current = "showStart";
+    } else {
+      startScreenClass.current = "";
+    }
+  }, [firstXStart]);
+
+  function smartGameStartClick() {
+    if (firstXStart === true) {
+      startGame();
+    }
+  }
+
+  function countDownText(time) {
+    if (time === 0) {
+      return <p className="numbers numWords">GO!</p>;
+    } else {
+      return <p className={`numbers num${time}`}>{time}</p>;
+    }
+  }
 
   return (
     <>
-      <div className="pageContainer">
+      <div className="pageContainer" onClick={() => smartGameStartClick()}>
         <main className="device" onKeyDown={handleKeyDown} tabIndex="0">
           <div className="topLight"></div>
           <div className="gridContainer">
@@ -237,6 +325,24 @@ function App() {
                 {scoreTwo}
                 {scoreThree}
               </p>
+              <p
+                onClick={() => {
+                  restartGameAfterEnd();
+                }}
+                className="retryBtn"
+              >
+                PLAY AGAIN?
+              </p>
+            </div>
+
+            <div
+              className={`popUpScreen startScreen ${startScreenClass.current}`}
+            >
+              <p className="words">Press Anything To Start!</p>
+            </div>
+
+            <div className={`popUpScreen countDown ${countDownClass}`}>
+              {countDownText(timer)}
             </div>
 
             <div className="topRow">
@@ -286,9 +392,8 @@ function App() {
           </div>
 
           <div className="middleBtns">
-            <button onClick={() => (gameStart.current = true)}>start</button>
-
             <button
+              className="functionButtons"
               onClick={() => {
                 resetGame();
               }}
