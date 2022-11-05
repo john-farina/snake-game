@@ -10,6 +10,9 @@ import getStyledNum from "./functions/getStyledNum";
 import scoreBasedQuotes from "./functions/scoreBasedQuotes";
 import ArrowSvg from "./arrowsvg.svg";
 import LeaderBoardIcon from "./leaderboardIcon.svg";
+import ScreenTexture from "./images/screentext.png";
+import SmallScreenTexture from "./images/smallScreentext.png";
+import PlasticTexture from "./images/plasticText.jpg";
 // HEAD === Snake Head
 
 // BODY === Snake Body
@@ -315,9 +318,12 @@ function App() {
   return (
     <>
       <div className="pageContainer" onClick={() => smartGameStartClick()}>
+        <img src={PlasticTexture} className="plasticTexture" alt="" />
         <main className="device" onKeyDown={handleKeyDown} tabIndex="0">
           <div className="topLight"></div>
           <div className="gridContainer">
+            <img src={ScreenTexture} className="screenTexture" alt="" />
+
             <div className={`popUpScreen endScreen ${endScreenClass}`}>
               <p className="words">{scoreBasedQuotes(snake.length - 2)}</p>
               <p className="score">
@@ -348,6 +354,7 @@ function App() {
             <div className="topRow">
               <h1 className="title">s n a k e.</h1>
               <div className="scoreCounter">
+                <img src={SmallScreenTexture} className="scoreScreen" alt="" />
                 <div className="number">
                   <p>{scoreOne}</p>
                 </div>
