@@ -399,9 +399,7 @@ function App() {
                 onClick={() => {
                   resetGame();
                 }}
-              >
-                reset
-              </button>
+              ></button>
               <p>RESET</p>
             </div>
           </div>
@@ -446,18 +444,6 @@ function App() {
             </div>
           </div>
         </main>
-
-        <div className="extraContainer">
-          <div className="middleRow">
-            <button className="leaderBoardBtn">
-              <img className="leadImage" src={LeaderBoardIcon} alt="" />
-            </button>
-          </div>
-
-          <button onClick={() => (gameStart.current = true)}>start</button>
-
-          <button onClick={() => (gameStart.current = false)}>stop</button>
-        </div>
       </div>
     </>
   );
