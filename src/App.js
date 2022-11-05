@@ -346,6 +346,7 @@ function App() {
             </div>
 
             <div className="topRow">
+              <h1 className="title">s n a k e.</h1>
               <div className="scoreCounter">
                 <div className="number">
                   <p>{scoreOne}</p>
