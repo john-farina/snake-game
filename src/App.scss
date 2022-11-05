@@ -41,9 +41,10 @@ body {
   height: $deviceHeight;
   border-radius: 3px;
   gap: 10px;
+  outline: none;
 
   &:focus {
-    outline-width: 0;
+    outline: none;
   }
 
   .topLight {
