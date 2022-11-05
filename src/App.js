@@ -393,14 +393,17 @@ function App() {
           </div>
 
           <div className="middleBtns">
-            <button
-              className="functionButtons"
-              onClick={() => {
-                resetGame();
-              }}
-            >
-              reset
-            </button>
+            <div className="resetContainer">
+              <button
+                className="functionButtons"
+                onClick={() => {
+                  resetGame();
+                }}
+              >
+                reset
+              </button>
+              <p>RESET</p>
+            </div>
           </div>
 
           <div className="buttonContainer">
